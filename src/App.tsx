@@ -31,8 +31,8 @@ function App() {
     <div className="font-inter text-gray-800">
       <Navbar />
       <Hero />
-      <Services />
       <About />
+      <Services />
       <Brochures />
       <Testimonials />
       <Locations />
