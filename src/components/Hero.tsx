@@ -27,11 +27,11 @@ const Hero: React.FC = () => {
                 alt="Abhijit Power" 
                 className="h-16 object-contain"
               />
-              <img 
+              {/* <img 
                 src="/assets/powerol-logo.png"
                 alt="Powerol by Mahindra" 
                 className="h-12 object-contain"
-              />
+              /> */}
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
