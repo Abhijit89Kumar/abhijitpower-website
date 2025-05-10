@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { contactInfo } from '../data';
 import { Phone, Mail, Clock, Send, Bug } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import EmailFallback from './EmailFallback';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -42,10 +43,13 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // Try the direct Discord endpoint first
+      // Try all endpoints in sequence
+      let success = false;
+
+      // 1. Try the simple endpoint first (most likely to succeed)
       try {
-        console.log('Testing direct Discord endpoint...');
-        const directResponse = await fetch('/api/discord', {
+        console.log('Testing simple-discord endpoint...');
+        const simpleResponse = await fetch('/api/simple-discord', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -58,20 +62,54 @@ const Contact: React.FC = () => {
           }),
         });
 
-        const directData = await directResponse.json().catch(() => ({ error: 'Failed to parse response' }));
+        const simpleData = await simpleResponse.json().catch(() => ({ error: 'Failed to parse response' }));
 
-        if (directResponse.ok) {
+        if (simpleResponse.ok) {
           setDebugResult({
             success: true,
-            message: `Direct Discord endpoint success! ${directData.message || 'Message sent'}`
+            message: `Simple Discord endpoint success! ${simpleData.message || 'Message sent'}`
           });
-          return; // Exit if successful
+          success = true;
         } else {
-          console.warn('Direct Discord test failed, trying test-webhook endpoint...');
+          console.warn('Simple Discord test failed, trying direct endpoint...');
         }
-      } catch (directError) {
-        console.error('Error testing direct endpoint:', directError);
-        // Continue to fallback
+      } catch (simpleError) {
+        console.error('Error testing simple endpoint:', simpleError);
+        // Continue to next endpoint
+      }
+
+      // 2. Try the direct Discord endpoint if simple failed
+      if (!success) {
+        try {
+          console.log('Testing direct Discord endpoint...');
+          const directResponse = await fetch('/api/discord', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: 'Test User',
+              email: 'test@example.com',
+              message: 'This is a test message from the debug panel',
+              service: 'Testing'
+            }),
+          });
+
+          const directData = await directResponse.json().catch(() => ({ error: 'Failed to parse response' }));
+
+          if (directResponse.ok) {
+            setDebugResult({
+              success: true,
+              message: `Direct Discord endpoint success! ${directData.message || 'Message sent'}`
+            });
+            success = true;
+          } else {
+            console.warn('Direct Discord test failed, trying test-webhook endpoint...');
+          }
+        } catch (directError) {
+          console.error('Error testing direct endpoint:', directError);
+          // Continue to fallback
+        }
       }
 
       // Fallback to the test-webhook endpoint
@@ -128,7 +166,11 @@ const Contact: React.FC = () => {
         // Continue with Discord notification even if Supabase fails
       }
 
-      // Try the direct Discord endpoint first
+      // Try multiple endpoints in sequence until one works
+      let success = false;
+      let lastError = null;
+
+      // 1. Try the direct Discord endpoint first
       try {
         console.log('Attempting to send via direct Discord endpoint...');
         const discordResponse = await fetch('/api/discord', {
@@ -141,10 +183,24 @@ const Contact: React.FC = () => {
 
         if (discordResponse.ok) {
           console.log('Successfully sent via direct Discord endpoint');
+          success = true;
         } else {
-          // If direct Discord fails, try the original endpoint as fallback
-          console.warn('Direct Discord endpoint failed, trying original endpoint...');
+          const errorData = await discordResponse.json().catch(() => null);
+          console.warn('Direct Discord endpoint failed:', discordResponse.status, errorData);
+          lastError = new Error(
+            errorData?.details ||
+            `Discord endpoint failed (${discordResponse.status})`
+          );
+        }
+      } catch (discordError) {
+        console.error('Error with Discord endpoint:', discordError);
+        lastError = discordError;
+      }
 
+      // 2. If direct Discord fails, try the original endpoint as fallback
+      if (!success) {
+        try {
+          console.log('Trying original contact endpoint...');
           const response = await fetch('/api/contact', {
             method: 'POST',
             headers: {
@@ -153,42 +209,69 @@ const Contact: React.FC = () => {
             body: JSON.stringify(formData),
           });
 
-          if (!response.ok) {
+          if (response.ok) {
+            console.log('Successfully sent via original contact endpoint');
+            success = true;
+          } else {
             const errorData = await response.json().catch(() => null);
-            console.error('API error:', response.status, errorData);
-
-            throw new Error(
+            console.warn('Original endpoint failed:', response.status, errorData);
+            lastError = new Error(
               errorData?.details ||
-              `Failed to send notification (${response.status})`
+              `Contact endpoint failed (${response.status})`
             );
           }
+        } catch (contactError) {
+          console.error('Error with contact endpoint:', contactError);
+          lastError = contactError;
         }
-
-        // If we reach here, at least Discord notification was successful
-        setSubmitMessage(
-          supabaseSuccess
-            ? 'Thank you for your message! We will get back to you soon.'
-            : 'Your message was sent, but there was an issue saving it to our database. We will still contact you soon.'
-        );
-
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          message: '',
-          service: 'generator',
-        });
-
-        // Clear success message after some time
-        setTimeout(() => {
-          setSubmitMessage('');
-        }, 5000);
-
-      } catch (apiError) {
-        console.error('API call error:', apiError);
-        throw apiError; // Re-throw to be caught by the outer catch
       }
+
+      // 3. Last resort: try the ultra-simple endpoint
+      if (!success) {
+        try {
+          console.log('Trying simple-discord endpoint as last resort...');
+          const simpleResponse = await fetch('/api/simple-discord', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+
+          // We consider any response from this endpoint a success
+          console.log('Simple endpoint response:', simpleResponse.status);
+          success = true;
+        } catch (simpleError) {
+          console.error('Even simple endpoint failed:', simpleError);
+          lastError = simpleError;
+        }
+      }
+
+      // If all endpoints failed, throw the last error
+      if (!success && lastError) {
+        throw lastError;
+      }
+
+      // If we reach here, at least one of the notification methods was successful
+      setSubmitMessage(
+        supabaseSuccess
+          ? 'Thank you for your message! We will get back to you soon.'
+          : 'Your message was sent, but there was an issue saving it to our database. We will still contact you soon.'
+      );
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        service: 'generator',
+      });
+
+      // Clear success message after some time
+      setTimeout(() => {
+        setSubmitMessage('');
+      }, 5000);
 
     } catch (error) {
       console.error('Error in form submission:', error);
@@ -293,19 +376,14 @@ const Contact: React.FC = () => {
               {submitError && (
                 <div className="bg-red-50 text-red-700 p-4 rounded-md mb-6">
                   <p className="mb-2">{submitError}</p>
-                  <div className="mt-4 bg-white p-3 rounded border border-red-200">
-                    <p className="text-sm font-medium mb-2">Alternative Contact Method:</p>
-                    <a
-                      href={`mailto:${contactInfo.email[0]}?subject=Website Inquiry&body=Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AService: ${formData.service}%0D%0A%0D%0A${formData.message}`}
-                      className="btn bg-primary text-white hover:bg-primary-dark w-full flex items-center justify-center text-sm"
-                    >
-                      <Mail className="h-4 w-4 mr-2" />
-                      Send Email Directly
-                    </a>
-                    <p className="text-xs text-gray-500 mt-2 text-center">
-                      This will open your email app with a pre-filled message
-                    </p>
-                  </div>
+                  <EmailFallback
+                    name={formData.name}
+                    email={formData.email}
+                    phone={formData.phone}
+                    message={formData.message}
+                    service={formData.service}
+                    contactEmail={contactInfo.email[0]}
+                  />
                 </div>
               )}
 

@@ -28,6 +28,11 @@
       "dest": "/api/discord.ts"
     },
     {
+      "src": "/api/simple-discord",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/simple-discord.ts"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
