@@ -13,6 +13,21 @@
   ],
   "routes": [
     {
+      "src": "/api/contact",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/contact.ts"
+    },
+    {
+      "src": "/api/test-webhook",
+      "methods": ["GET", "OPTIONS"],
+      "dest": "/api/test-webhook.ts"
+    },
+    {
+      "src": "/api/discord",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/discord.ts"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },

@@ -42,6 +42,39 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
+      // Try the direct Discord endpoint first
+      try {
+        console.log('Testing direct Discord endpoint...');
+        const directResponse = await fetch('/api/discord', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: 'Test User',
+            email: 'test@example.com',
+            message: 'This is a test message from the debug panel',
+            service: 'Testing'
+          }),
+        });
+
+        const directData = await directResponse.json().catch(() => ({ error: 'Failed to parse response' }));
+
+        if (directResponse.ok) {
+          setDebugResult({
+            success: true,
+            message: `Direct Discord endpoint success! ${directData.message || 'Message sent'}`
+          });
+          return; // Exit if successful
+        } else {
+          console.warn('Direct Discord test failed, trying test-webhook endpoint...');
+        }
+      } catch (directError) {
+        console.error('Error testing direct endpoint:', directError);
+        // Continue to fallback
+      }
+
+      // Fallback to the test-webhook endpoint
       const response = await fetch('/api/test-webhook');
       const data = await response.json();
 
@@ -95,9 +128,10 @@ const Contact: React.FC = () => {
         // Continue with Discord notification even if Supabase fails
       }
 
-      // Send notification via serverless function
+      // Try the direct Discord endpoint first
       try {
-        const response = await fetch('/api/contact', {
+        console.log('Attempting to send via direct Discord endpoint...');
+        const discordResponse = await fetch('/api/discord', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -105,14 +139,29 @@ const Contact: React.FC = () => {
           body: JSON.stringify(formData),
         });
 
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => null);
-          console.error('API error:', response.status, errorData);
+        if (discordResponse.ok) {
+          console.log('Successfully sent via direct Discord endpoint');
+        } else {
+          // If direct Discord fails, try the original endpoint as fallback
+          console.warn('Direct Discord endpoint failed, trying original endpoint...');
 
-          throw new Error(
-            errorData?.details ||
-            `Failed to send notification (${response.status})`
-          );
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            console.error('API error:', response.status, errorData);
+
+            throw new Error(
+              errorData?.details ||
+              `Failed to send notification (${response.status})`
+            );
+          }
         }
 
         // If we reach here, at least Discord notification was successful
@@ -244,15 +293,19 @@ const Contact: React.FC = () => {
               {submitError && (
                 <div className="bg-red-50 text-red-700 p-4 rounded-md mb-6">
                   <p className="mb-2">{submitError}</p>
-                  <p className="text-sm">
-                    You can also email us directly at{' '}
+                  <div className="mt-4 bg-white p-3 rounded border border-red-200">
+                    <p className="text-sm font-medium mb-2">Alternative Contact Method:</p>
                     <a
                       href={`mailto:${contactInfo.email[0]}?subject=Website Inquiry&body=Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AService: ${formData.service}%0D%0A%0D%0A${formData.message}`}
-                      className="text-primary hover:underline"
+                      className="btn bg-primary text-white hover:bg-primary-dark w-full flex items-center justify-center text-sm"
                     >
-                      {contactInfo.email[0]}
+                      <Mail className="h-4 w-4 mr-2" />
+                      Send Email Directly
                     </a>
-                  </p>
+                    <p className="text-xs text-gray-500 mt-2 text-center">
+                      This will open your email app with a pre-filled message
+                    </p>
+                  </div>
                 </div>
               )}
 
@@ -375,18 +428,29 @@ const Contact: React.FC = () => {
                   ></textarea>
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn btn-primary w-full flex items-center justify-center"
-                >
-                  {isSubmitting ? (
-                    <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
-                  ) : (
-                    <Send className="h-4 w-4 mr-2" />
-                  )}
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
+                <div className="flex flex-col space-y-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-primary w-full flex items-center justify-center"
+                  >
+                    {isSubmitting ? (
+                      <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+                    ) : (
+                      <Send className="h-4 w-4 mr-2" />
+                    )}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+
+                  {/* Hidden debug button - triple click to show debug panel */}
+                  <button
+                    type="button"
+                    onClick={() => setShowDebug(true)}
+                    className="text-[0.5rem] text-gray-300 hover:text-gray-500 transition-colors mt-2 self-end"
+                  >
+                    Debug
+                  </button>
+                </div>
               </form>
             </div>
           </motion.div>
