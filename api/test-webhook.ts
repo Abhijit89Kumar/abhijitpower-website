@@ -11,57 +11,51 @@ const setCorsHeaders = (res: VercelResponse) => {
   );
 };
 
+/**
+ * Simple test endpoint to verify Discord webhook functionality
+ */
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     setCorsHeaders(res);
     return res.status(200).end();
   }
-
+  
   // Set CORS headers for all responses
   setCorsHeaders(res);
-
-  if (req.method !== 'POST') {
+  
+  // Only allow GET requests for this test endpoint
+  if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { name, email, phone, service, message } = req.body;
-
-    // Validate required fields
-    if (!name || !email || !message) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    // Format the message for Discord
-    const webhookBody = {
-      embeds: [{
-        title: "New Contact Form Submission",
-        color: 0xc7372f, // Red color from your theme
-        fields: [
-          { name: "Name", value: name, inline: true },
-          { name: "Email", value: email, inline: true },
-          { name: "Phone", value: phone || "Not provided", inline: true },
-          { name: "Service", value: service || "Not specified", inline: false },
-          { name: "Message", value: message, inline: false }
-        ],
-        footer: {
-          text: "Sent from Abhijit Power website"
-        },
-        timestamp: new Date().toISOString()
-      }]
-    };
-
     // Get the Discord webhook URL from environment variables
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-
+    
     if (!webhookUrl) {
-      console.error('Discord webhook URL not configured');
-      return res.status(500).json({
+      return res.status(500).json({ 
         error: 'Server configuration error',
         details: 'Discord webhook URL is not configured'
       });
     }
+
+    // Create a simple test message
+    const testMessage = {
+      content: "This is a test message from the Abhijit Power website API",
+      embeds: [{
+        title: "Webhook Test",
+        description: "If you can see this message, the webhook is working correctly!",
+        color: 0x00ff00, // Green color
+        fields: [
+          { name: "Timestamp", value: new Date().toISOString(), inline: true },
+          { name: "Environment", value: process.env.VERCEL_ENV || "unknown", inline: true }
+        ],
+        footer: {
+          text: "Abhijit Power Website - Webhook Test"
+        }
+      }]
+    };
 
     // Send to Discord webhook
     const discordResponse = await fetch(webhookUrl, {
@@ -69,26 +63,29 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(webhookBody),
+      body: JSON.stringify(testMessage),
     });
 
     // Check if Discord API call was successful
     if (!discordResponse.ok) {
       const errorText = await discordResponse.text();
       console.error('Discord API error:', discordResponse.status, errorText);
-
-      return res.status(500).json({
+      
+      return res.status(500).json({ 
         error: 'Failed to send to Discord',
         status: discordResponse.status,
         details: errorText
       });
     }
 
-    return res.status(200).json({ message: 'Message sent successfully' });
+    return res.status(200).json({ 
+      message: 'Test message sent successfully to Discord',
+      webhookUrl: webhookUrl.split('/').slice(0, -2).join('/') + '/xxx/xxx' // Hide the actual token
+    });
   } catch (error) {
-    console.error('Error sending message:', error);
-    return res.status(500).json({
-      error: 'Error sending message',
+    console.error('Error sending test message:', error);
+    return res.status(500).json({ 
+      error: 'Error sending test message',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }

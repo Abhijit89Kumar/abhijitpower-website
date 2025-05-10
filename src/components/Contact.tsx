@@ -1,7 +1,7 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { contactInfo } from '../data';
-import { Phone, Mail, Clock, Send } from 'lucide-react';
+import { Phone, Mail, Clock, Send, Bug } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 const Contact: React.FC = () => {
@@ -12,75 +12,158 @@ const Contact: React.FC = () => {
     message: '',
     service: 'generator',
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitError, setSubmitError] = useState('');
-  
+  const [showDebug, setShowDebug] = useState(false);
+  const [debugResult, setDebugResult] = useState<{success?: boolean; message?: string} | null>(null);
+
+  // Check for admin mode with key combo (Ctrl+Shift+D)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        setShowDebug(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+
+  // Test the webhook directly
+  const testWebhook = async () => {
+    setDebugResult(null);
     setIsSubmitting(true);
-    setSubmitError('');
-    
+
     try {
-      // First store in Supabase
-      const { error: supabaseError } = await supabase
-        .from('contact_messages')
-        .insert([{
-          ...formData,
-          created_at: new Date().toISOString(),
-          read: false
-        }]);
+      const response = await fetch('/api/test-webhook');
+      const data = await response.json();
 
-      if (supabaseError) {
-        throw supabaseError;
+      if (response.ok) {
+        setDebugResult({
+          success: true,
+          message: `Success! ${data.message}`
+        });
+      } else {
+        setDebugResult({
+          success: false,
+          message: `Error: ${data.error} - ${data.details || ''}`
+        });
       }
-
-      // Then send notification via serverless function
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send notification');
-      }
-      
-      setSubmitMessage('Thank you for your message! We will get back to you soon.');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        service: 'generator',
-      });
-      
-      setTimeout(() => {
-        setSubmitMessage('');
-      }, 5000);
     } catch (error) {
-      console.error('Error:', error);
-      setSubmitError(
-        'There was an error sending your message. Please try again or contact us directly.'
-      );
+      setDebugResult({
+        success: false,
+        message: `Exception: ${error instanceof Error ? error.message : 'Unknown error'}`
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+    setSubmitMessage('');
+
+    try {
+      let supabaseSuccess = true;
+
+      // Try to store in Supabase, but don't block if it fails
+      try {
+        const { error: supabaseError } = await supabase
+          .from('contact_messages')
+          .insert([{
+            ...formData,
+            created_at: new Date().toISOString(),
+            read: false
+          }]);
+
+        if (supabaseError) {
+          console.warn('Supabase error:', supabaseError);
+          supabaseSuccess = false;
+        }
+      } catch (supabaseErr) {
+        console.warn('Failed to store in Supabase:', supabaseErr);
+        supabaseSuccess = false;
+        // Continue with Discord notification even if Supabase fails
+      }
+
+      // Send notification via serverless function
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          console.error('API error:', response.status, errorData);
+
+          throw new Error(
+            errorData?.details ||
+            `Failed to send notification (${response.status})`
+          );
+        }
+
+        // If we reach here, at least Discord notification was successful
+        setSubmitMessage(
+          supabaseSuccess
+            ? 'Thank you for your message! We will get back to you soon.'
+            : 'Your message was sent, but there was an issue saving it to our database. We will still contact you soon.'
+        );
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+          service: 'generator',
+        });
+
+        // Clear success message after some time
+        setTimeout(() => {
+          setSubmitMessage('');
+        }, 5000);
+
+      } catch (apiError) {
+        console.error('API call error:', apiError);
+        throw apiError; // Re-throw to be caught by the outer catch
+      }
+
+    } catch (error) {
+      console.error('Error in form submission:', error);
+
+      // Show a more specific error message if possible
+      if (error instanceof Error) {
+        setSubmitError(
+          `There was an error sending your message: ${error.message}. Please try again or contact us directly.`
+        );
+      } else {
+        setSubmitError(
+          'There was an error sending your message. Please try again or contact us directly using the phone number or email listed above.'
+        );
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="section bg-white">
       <div className="container">
         <h2 className="section-title">Contact Us</h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -92,7 +175,7 @@ const Contact: React.FC = () => {
             <p className="text-gray-600 mb-8">
               Have questions about our products or services? Reach out to us through the contact form or using the information below. Our team is ready to assist you.
             </p>
-            
+
             <div className="space-y-6">
               <div className="flex items-start">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
@@ -101,9 +184,9 @@ const Contact: React.FC = () => {
                 <div>
                   <h4 className="font-medium text-lg mb-1">Phone</h4>
                   {contactInfo.phone.map((number) => (
-                    <a 
+                    <a
                       key={number}
-                      href={`tel:${number}`} 
+                      href={`tel:${number}`}
                       className="block text-gray-600 hover:text-primary transition-colors"
                     >
                       {number}
@@ -111,7 +194,7 @@ const Contact: React.FC = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="flex items-start">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
                   <Mail className="h-5 w-5 text-primary" />
@@ -119,9 +202,9 @@ const Contact: React.FC = () => {
                 <div>
                   <h4 className="font-medium text-lg mb-1">Email</h4>
                   {contactInfo.email.map((email) => (
-                    <a 
+                    <a
                       key={email}
-                      href={`mailto:${email}`} 
+                      href={`mailto:${email}`}
                       className="block text-gray-600 hover:text-primary transition-colors"
                     >
                       {email}
@@ -129,7 +212,7 @@ const Contact: React.FC = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="flex items-start">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
                   <Clock className="h-5 w-5 text-primary" />
@@ -142,7 +225,7 @@ const Contact: React.FC = () => {
               </div>
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -151,19 +234,66 @@ const Contact: React.FC = () => {
           >
             <div className="bg-gray-50 rounded-lg p-8 shadow-md">
               <h3 className="text-2xl font-semibold mb-6">Send us a message</h3>
-              
+
               {submitMessage && (
                 <div className="bg-green-50 text-green-700 p-4 rounded-md mb-6">
                   {submitMessage}
                 </div>
               )}
-              
+
               {submitError && (
                 <div className="bg-red-50 text-red-700 p-4 rounded-md mb-6">
-                  {submitError}
+                  <p className="mb-2">{submitError}</p>
+                  <p className="text-sm">
+                    You can also email us directly at{' '}
+                    <a
+                      href={`mailto:${contactInfo.email[0]}?subject=Website Inquiry&body=Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AService: ${formData.service}%0D%0A%0D%0A${formData.message}`}
+                      className="text-primary hover:underline"
+                    >
+                      {contactInfo.email[0]}
+                    </a>
+                  </p>
                 </div>
               )}
-              
+
+              {/* Debug panel for administrators */}
+              {showDebug && (
+                <div className="mb-6 p-4 border border-gray-300 rounded-md bg-gray-50">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-sm font-semibold flex items-center">
+                      <Bug className="h-4 w-4 mr-2" />
+                      Admin Debug Panel
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={() => setShowDebug(false)}
+                      className="text-xs text-gray-500 hover:text-gray-700"
+                    >
+                      Close
+                    </button>
+                  </div>
+
+                  <div className="mb-4">
+                    <button
+                      type="button"
+                      onClick={testWebhook}
+                      disabled={isSubmitting}
+                      className="btn bg-gray-700 text-white hover:bg-gray-800 text-xs py-1 px-3"
+                    >
+                      Test Discord Webhook
+                    </button>
+                  </div>
+
+                  {debugResult && (
+                    <div className={`text-xs p-2 rounded ${
+                      debugResult.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    }`}>
+                      {debugResult.message}
+                    </div>
+                  )}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -179,7 +309,7 @@ const Contact: React.FC = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -195,7 +325,7 @@ const Contact: React.FC = () => {
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                       Phone
@@ -211,7 +341,7 @@ const Contact: React.FC = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="mb-4">
                   <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">
                     Interested In
@@ -229,7 +359,7 @@ const Contact: React.FC = () => {
                     <option value="other">Other</option>
                   </select>
                 </div>
-                
+
                 <div className="mb-6">
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                     Your Message
@@ -244,7 +374,7 @@ const Contact: React.FC = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
                   ></textarea>
                 </div>
-                
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
