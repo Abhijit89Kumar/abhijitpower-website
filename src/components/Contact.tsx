@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { contactInfo } from '../data';
 import { Phone, Mail, Clock, Send } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import { PostgrestError } from '@supabase/supabase-js';
-import { sendContactNotification } from '../lib/emailService';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -30,8 +28,8 @@ const Contact: React.FC = () => {
     setSubmitError('');
     
     try {
-      // First, insert into Supabase
-      const { error } = await supabase
+      // First store in Supabase
+      const { error: supabaseError } = await supabase
         .from('contact_messages')
         .insert([{
           ...formData,
@@ -39,15 +37,21 @@ const Contact: React.FC = () => {
           read: false
         }]);
 
-      if (error) {
-        console.error('Supabase error:', error);
-        throw error;
+      if (supabaseError) {
+        throw supabaseError;
       }
 
-      // Then, send email notification
-      const emailResult = await sendContactNotification(formData);
-      if (!emailResult.success) {
-        console.error('Email sending failed:', emailResult.error);
+      // Then send notification via serverless function
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send notification');
       }
       
       setSubmitMessage('Thank you for your message! We will get back to you soon.');
@@ -63,10 +67,8 @@ const Contact: React.FC = () => {
         setSubmitMessage('');
       }, 5000);
     } catch (error) {
-      console.error('Detailed error:', error);
-      const pgError = error as PostgrestError;
+      console.error('Error:', error);
       setSubmitError(
-        pgError.message || 
         'There was an error sending your message. Please try again or contact us directly.'
       );
     } finally {
