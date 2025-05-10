@@ -4,6 +4,7 @@ import { contactInfo } from '../data';
 import { Phone, Mail, Clock, Send } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { PostgrestError } from '@supabase/supabase-js';
+import { sendContactNotification } from '../lib/emailService';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +30,7 @@ const Contact: React.FC = () => {
     setSubmitError('');
     
     try {
+      // First, insert into Supabase
       const { error } = await supabase
         .from('contact_messages')
         .insert([{
@@ -40,6 +42,12 @@ const Contact: React.FC = () => {
       if (error) {
         console.error('Supabase error:', error);
         throw error;
+      }
+
+      // Then, send email notification
+      const emailResult = await sendContactNotification(formData);
+      if (!emailResult.success) {
+        console.error('Email sending failed:', emailResult.error);
       }
       
       setSubmitMessage('Thank you for your message! We will get back to you soon.');
