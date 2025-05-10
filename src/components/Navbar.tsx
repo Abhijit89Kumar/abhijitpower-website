@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X, Power } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { createRoot } from 'react-dom/client';
 import { navLinks } from '../data';
+import FallbackLogo from './FallbackLogo';
+import { handleImageError } from '../utils/imageUtils';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -17,30 +20,47 @@ const Navbar: React.FC = () => {
         setScrolled(false);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   return (
-    <header 
+    <header
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
       }`}
     >
       <div className="container flex items-center justify-between">
         <a href="/" className="flex items-center space-x-3">
-          <img 
+          {/* Try to load the logo image, fallback to SVG component if it fails */}
+          <img
             src="/assets/abhijit-power-logo.png"
             alt="Abhijit Power Logo"
             className="h-12 w-auto"
+            onError={handleImageError}
+            onLoad={(e) => {
+              // If the image loads with a 0 width, it's likely a broken image
+              if ((e.target as HTMLImageElement).naturalWidth === 0) {
+                (e.target as HTMLImageElement).style.display = 'none';
+                // Insert the fallback logo
+                const parent = (e.target as HTMLImageElement).parentElement;
+                if (parent && !parent.querySelector('svg')) {
+                  const fallbackContainer = document.createElement('div');
+                  parent.insertBefore(fallbackContainer, (e.target as HTMLImageElement));
+                  // Render the fallback logo
+                  const root = createRoot(fallbackContainer);
+                  root.render(<FallbackLogo />);
+                }
+              }
+            }}
           />
           <div className={`transition-colors ${scrolled ? 'text-gray-900' : 'text-black'}`}>
             <p className="text-sm font-semibold">Authorized Dealer</p>
             <p className="text-xs">Mahindra Powerol & Gromax</p>
           </div>
         </a>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
@@ -59,7 +79,7 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
         </nav>
-        
+
         <div className="hidden md:block">
           <Link
             to="contact"
@@ -72,7 +92,7 @@ const Navbar: React.FC = () => {
             Contact Us
           </Link>
         </div>
-        
+
         {/* Mobile Menu Button */}
         <button
           className="md:hidden text-gray-700 hover:text-primary"
@@ -82,7 +102,7 @@ const Navbar: React.FC = () => {
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-      
+
       {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-md p-4 border-t border-gray-200">
