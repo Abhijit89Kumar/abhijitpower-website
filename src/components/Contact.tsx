@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { contactInfo } from '../data';
-import { Phone, Mail, Clock, Send, Bug } from 'lucide-react';
+import { contactInfo, locations } from '../data';
+import { Phone, Mail, Clock, Send, Bug, ArrowRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import EmailFallback from './EmailFallback';
 
@@ -292,9 +292,25 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="section bg-white">
-      <div className="container">
-        <h2 className="section-title">Contact Us</h2>
+    <section id="contact" className="section relative overflow-hidden">
+      {/* Background with pattern and gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-gray-900/90 to-primary-dark/80 z-10"></div>
+      <div className="absolute inset-0 bg-[url('/assets/pattern-bg.svg')] opacity-10 z-20"></div>
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src="/assets/contact-bg.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-20 z-0"
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="container relative z-30">
+        <div className="flex flex-col items-center mb-12">
+          <span className="text-sm font-medium text-white bg-white/10 backdrop-blur-sm px-4 py-1 rounded-full mb-4">Get In Touch</span>
+          <h2 className="section-title text-white">Contact Us</h2>
+          <p className="text-gray-300 max-w-2xl text-center mt-4">Have questions about our products or services? Our team is ready to assist you.</p>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <motion.div
@@ -302,57 +318,75 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            className="text-white"
           >
-            <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
-            <p className="text-gray-600 mb-8">
-              Have questions about our products or services? Reach out to us through the contact form or using the information below. Our team is ready to assist you.
-            </p>
-
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
-                  <Phone className="h-5 w-5 text-primary" />
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 shadow-xl">
+              <div className="space-y-8">
+                <div className="flex items-start">
+                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">
+                    <Phone className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-xl mb-2 text-white">Phone</h4>
+                    {contactInfo.phone.map((number) => (
+                      <a
+                        key={number}
+                        href={`tel:${number}`}
+                        className="block text-gray-300 hover:text-primary transition-colors text-lg"
+                      >
+                        {number}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium text-lg mb-1">Phone</h4>
-                  {contactInfo.phone.map((number) => (
-                    <a
-                      key={number}
-                      href={`tel:${number}`}
-                      className="block text-gray-600 hover:text-primary transition-colors"
-                    >
-                      {number}
-                    </a>
-                  ))}
+
+                <div className="flex items-start">
+                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-xl mb-2 text-white">Email</h4>
+                    {contactInfo.email.map((email) => (
+                      <a
+                        key={email}
+                        href={`mailto:${email}`}
+                        className="block text-gray-300 hover:text-primary transition-colors"
+                      >
+                        {email}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">
+                    <Clock className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-xl mb-2 text-white">Working Hours</h4>
+                    <p className="text-gray-300">{contactInfo.hours}</p>
+                    <p className="text-gray-300">Sunday: Closed</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
-                  <Mail className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-lg mb-1">Email</h4>
-                  {contactInfo.email.map((email) => (
-                    <a
-                      key={email}
-                      href={`mailto:${email}`}
-                      className="block text-gray-600 hover:text-primary transition-colors"
-                    >
-                      {email}
-                    </a>
+              <div className="mt-10 pt-8 border-t border-white/10">
+                <h4 className="font-medium text-xl mb-4 text-white">Visit Our Offices</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {locations.map(location => (
+                    <div key={location.id} className="bg-white/5 rounded-lg p-4">
+                      <h5 className="font-medium mb-2">{location.name}</h5>
+                      <p className="text-gray-300 text-sm mb-3">{location.address}</p>
+                      <a
+                        href={location.mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary text-sm hover:underline inline-flex items-center"
+                      >
+                        Get Directions <ArrowRight className="ml-1 h-3 w-3" />
+                      </a>
+                    </div>
                   ))}
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
-                  <Clock className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-lg mb-1">Working Hours</h4>
-                  <p className="text-gray-600">{contactInfo.hours}</p>
-                  <p className="text-gray-600">Sunday: Closed</p>
                 </div>
               </div>
             </div>
@@ -364,7 +398,7 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-gray-50 rounded-lg p-8 shadow-md">
+            <div className="bg-white rounded-xl p-8 shadow-xl">
               <h3 className="text-2xl font-semibold mb-6">Send us a message</h3>
 
               {submitMessage && (
@@ -510,12 +544,12 @@ const Contact: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn btn-primary w-full flex items-center justify-center"
+                    className="btn btn-primary w-full flex items-center justify-center py-3 text-base"
                   >
                     {isSubmitting ? (
-                      <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+                      <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
                     ) : (
-                      <Send className="h-4 w-4 mr-2" />
+                      <Send className="h-5 w-5 mr-2" />
                     )}
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>

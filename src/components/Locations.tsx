@@ -1,72 +1,125 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { locations } from '../data';
-import { MapPin, Phone } from 'lucide-react';
+import { MapPin, Phone, Navigation, Clock, ArrowRight } from 'lucide-react';
 
 const Locations: React.FC = () => {
   return (
-    <section id="locations" className="section bg-gray-50">
-      <div className="container">
-        <h2 className="section-title">Our Locations</h2>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {locations.map((location) => (
-            <motion.div
-              key={location.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
-            >
-              <div className="h-64 w-full">
-                <iframe
-                  src={location.embedUrl}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`Map of ${location.name}`}
-                ></iframe>
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{location.name}</h3>
-                
-                <div className="flex items-start mb-3">
-                  <MapPin className="h-5 w-5 text-primary mt-1 mr-2 flex-shrink-0" />
-                  <p className="text-gray-600">{location.address}</p>
-                </div>
-                
-                <div className="flex items-center mb-4">
-                  <Phone className="h-5 w-5 text-primary mr-2" />
-                  <a 
-                    href={`tel:${location.phone}`} 
-                    className="text-gray-600 hover:text-primary transition-colors"
-                  >
-                    {location.phone}
-                  </a>
-                </div>
-                
-                <a
-                  href={location.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline w-full"
-                >
-                  Get Directions
-                </a>
-              </div>
-            </motion.div>
-          ))}
+    <section id="locations" className="section relative overflow-hidden">
+      {/* Background with pattern */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white"></div>
+      <div className="absolute inset-0 bg-[url('/assets/pattern-bg.svg')] opacity-10"></div>
+
+      <div className="container relative">
+        <div className="flex flex-col items-center mb-12">
+          <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1 rounded-full mb-4">Find Us</span>
+          <h2 className="section-title">Our Locations</h2>
+          <p className="text-gray-600 max-w-2xl text-center mt-4">Visit our offices in Secunderabad and Jadcherla for sales and service of Mahindra Generators and Growmax Tractors</p>
         </div>
-        
-        <div className="text-center">
-          <p className="text-lg mb-3">Working Hours</p>
-          <p className="text-gray-600">Monday - Saturday: 9:00 AM - 6:00 PM</p>
-          <p className="text-gray-600">Sunday: Closed</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {locations.map((location, index) => {
+            const locationImage = location.id === 1 ? '/assets/location-secunderabad.jpg' : '/assets/location-jadcherla.jpg';
+
+            return (
+              <motion.div
+                key={location.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="group bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100"
+              >
+                <div className="relative h-64 w-full overflow-hidden">
+                  <img
+                    src={locationImage}
+                    alt={location.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-1">{location.name}</h3>
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 text-primary mr-2" />
+                      <p className="text-gray-200 text-sm">{location.address.split(',')[0]}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+                        <MapPin className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium text-gray-500 mb-1">Address</h4>
+                        <p className="text-gray-700">{location.address}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+                        <Phone className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium text-gray-500 mb-1">Phone</h4>
+                        <a
+                          href={`tel:${location.phone}`}
+                          className="text-gray-700 hover:text-primary transition-colors"
+                        >
+                          {location.phone}
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+                        <Clock className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium text-gray-500 mb-1">Hours</h4>
+                        <p className="text-gray-700">Mon-Sat: 9AM-6PM</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                    <a
+                      href={location.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary flex-1 inline-flex items-center justify-center"
+                    >
+                      <Navigation className="mr-2 h-4 w-4" />
+                      Get Directions
+                    </a>
+
+                    <a
+                      href={`tel:${location.phone}`}
+                      className="btn bg-gray-100 text-gray-800 hover:bg-gray-200 flex-1 inline-flex items-center justify-center"
+                    >
+                      <Phone className="mr-2 h-4 w-4" />
+                      Call Now
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="text-center bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-lg">
+          <h3 className="text-2xl font-semibold mb-4">Need Help Finding Us?</h3>
+          <p className="mb-8 text-lg text-gray-700 max-w-2xl mx-auto">
+            Our team is ready to assist you with directions to our locations or any other inquiries you may have.
+          </p>
+          <a
+            href="#contact"
+            className="btn btn-primary inline-flex items-center px-8 py-3"
+          >
+            Contact Us <ArrowRight className="ml-2 h-4 w-4" />
+          </a>
         </div>
       </div>
     </section>

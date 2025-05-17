@@ -63,6 +63,7 @@ export const testimonials: Testimonial[] = [
     role: 'Factory Owner',
     comment: 'The Mahindra generators from Abhijit Power have been exceptionally reliable for our manufacturing facility. Their service team is prompt and professional.',
     rating: 5,
+    image: '/assets/customer-1.jpg',
   },
   {
     id: 2,
@@ -70,6 +71,7 @@ export const testimonials: Testimonial[] = [
     role: 'Farm Owner',
     comment: 'We purchased a Growmax tractor last year and have been thoroughly impressed with its performance. The after-sales service from Abhijit Power has been excellent.',
     rating: 5,
+    image: '/assets/customer-2.jpg',
   },
   {
     id: 3,
@@ -77,6 +79,7 @@ export const testimonials: Testimonial[] = [
     role: 'Hotel Manager',
     comment: 'Our hotel relies on consistent power backup, and Abhijit Power has delivered with their top-notch Mahindra generators and responsive maintenance services.',
     rating: 4,
+    image: '/assets/customer-3.jpg',
   },
   {
     id: 4,
@@ -94,7 +97,7 @@ export const locations: Location[] = [
     address: 'Gitanjali Apartments, W Marredpally Rd, Rukmini Devi Colony, Mahatma Gandhi Nagar, West Marredpally, Secunderabad, Telangana 500026',
     mapUrl: 'https://maps.app.goo.gl/WhGUEbDTkBbhdkAS7',
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.3200906841413!2d78.5025153!3d17.444149699999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9a4f3e37c9d9%3A0x95f39b78d172ab56!2sGitanjali%20Apartments%2C%20W%20Marredpally%20Rd%2C%20Rukmini%20Devi%20Colony%2C%20Mahatma%20Gandhi%20Nagar%2C%20West%20Marredpally%2C%20Secunderabad%2C%20Telangana%20500026!5e0!3m2!1sen!2sin!4v1718289256783!5m2!1sen!2sin',
-    phone: '7766908394',
+    phone: '+91 7766908394',
   },
   {
     id: 2,
@@ -102,12 +105,12 @@ export const locations: Location[] = [
     address: 'Plot No -350, Mahabubnagar Rd, near Housing Board Colony, Jadcherla, Telangana 509301',
     mapUrl: 'https://maps.app.goo.gl/DPMEmENU4JQu72aw7',
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.2033651129893!2d77.6134653!3d16.8162866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bca3d0a5e4a07b1%3A0x5aa67b6758acf43a!2sPlot%20No%20-350%2C%20Mahabubnagar%20Rd%2C%20near%20Housing%20Board%20Colony%2C%20Jadcherla%2C%20Telangana%20509301!5e0!3m2!1sen!2sin!4v1718289509397!5m2!1sen!2sin',
-    phone: '7766908394',
+    phone: '+91 7766908394',
   },
 ];
 
 export const contactInfo = {
-  phone: ['7766908394', '9989688394'],
+  phone: ['+91 7766908394', '+91 9989688394'],
   email: ['abhijit.genset@gmail.com', 'abhijitgenset.sm@gmail.com'],
   hours: 'Monday - Saturday: 9:00 AM - 6:00 PM',
 };

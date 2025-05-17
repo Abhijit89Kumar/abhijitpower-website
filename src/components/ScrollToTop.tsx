@@ -9,7 +9,7 @@ const ScrollToTop: React.FC = () => {
       behavior: 'smooth',
     });
   };
-  
+
   return (
     <motion.button
       initial={{ opacity: 0, y: 10 }}
@@ -17,8 +17,9 @@ const ScrollToTop: React.FC = () => {
       exit={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.3 }}
       onClick={scrollToTop}
-      className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary shadow-lg flex items-center justify-center text-white z-50 hover:bg-primary-dark transition-colors"
+      className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-primary shadow-xl flex items-center justify-center text-white z-50 hover:bg-primary-dark transition-all duration-300 hover:scale-110 border border-white/20 backdrop-blur-sm"
       aria-label="Scroll to top"
+      whileHover={{ y: -5 }}
     >
       <ChevronUp size={24} />
     </motion.button>
