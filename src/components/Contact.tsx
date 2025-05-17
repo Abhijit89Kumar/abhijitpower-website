@@ -1,8 +1,8 @@
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, FormEvent, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { contactInfo, locations } from '../data';
 import { Phone, Mail, Clock, Send, Bug, ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import emailjs from '@emailjs/browser';
 import EmailFallback from './EmailFallback';
 
 const Contact: React.FC = () => {
@@ -34,7 +34,17 @@ const Contact: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Map the EmailJS field names to our form state
+    const fieldMap: Record<string, string> = {
+      'user_name': 'name',
+      'user_email': 'email',
+      'user_phone': 'phone',
+      'service_type': 'service',
+      'message': 'message'
+    };
+
+    const stateField = fieldMap[name] || name;
+    setFormData((prev) => ({ ...prev, [stateField]: value }));
   };
 
   // Test the webhook directly
@@ -137,6 +147,13 @@ const Contact: React.FC = () => {
     }
   };
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("4aPK-KWk8Vh3rcA7K"); // EmailJS public key
+  }, []);
+
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -144,120 +161,26 @@ const Contact: React.FC = () => {
     setSubmitMessage('');
 
     try {
-      let supabaseSuccess = true;
-
-      // Try to store in Supabase, but don't block if it fails
-      try {
-        const { error: supabaseError } = await supabase
-          .from('contact_messages')
-          .insert([{
-            ...formData,
-            created_at: new Date().toISOString(),
-            read: false
-          }]);
-
-        if (supabaseError) {
-          console.warn('Supabase error:', supabaseError);
-          supabaseSuccess = false;
-        }
-      } catch (supabaseErr) {
-        console.warn('Failed to store in Supabase:', supabaseErr);
-        supabaseSuccess = false;
-        // Continue with Discord notification even if Supabase fails
+      if (!formRef.current) {
+        throw new Error('Form reference is not available');
       }
 
-      // Try multiple endpoints in sequence until one works
-      let success = false;
-      let lastError = null;
-
-      // 1. Try the direct Discord endpoint first
-      try {
-        console.log('Attempting to send via direct Discord endpoint...');
-        const discordResponse = await fetch('/api/discord', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (discordResponse.ok) {
-          console.log('Successfully sent via direct Discord endpoint');
-          success = true;
-        } else {
-          const errorData = await discordResponse.json().catch(() => null);
-          console.warn('Direct Discord endpoint failed:', discordResponse.status, errorData);
-          lastError = new Error(
-            errorData?.details ||
-            `Discord endpoint failed (${discordResponse.status})`
-          );
-        }
-      } catch (discordError) {
-        console.error('Error with Discord endpoint:', discordError);
-        lastError = discordError;
-      }
-
-      // 2. If direct Discord fails, try the original endpoint as fallback
-      if (!success) {
-        try {
-          console.log('Trying original contact endpoint...');
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-
-          if (response.ok) {
-            console.log('Successfully sent via original contact endpoint');
-            success = true;
-          } else {
-            const errorData = await response.json().catch(() => null);
-            console.warn('Original endpoint failed:', response.status, errorData);
-            lastError = new Error(
-              errorData?.details ||
-              `Contact endpoint failed (${response.status})`
-            );
-          }
-        } catch (contactError) {
-          console.error('Error with contact endpoint:', contactError);
-          lastError = contactError;
-        }
-      }
-
-      // 3. Last resort: try the ultra-simple endpoint
-      if (!success) {
-        try {
-          console.log('Trying simple-discord endpoint as last resort...');
-          const simpleResponse = await fetch('/api/simple-discord', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-
-          // We consider any response from this endpoint a success
-          console.log('Simple endpoint response:', simpleResponse.status);
-          success = true;
-        } catch (simpleError) {
-          console.error('Even simple endpoint failed:', simpleError);
-          lastError = simpleError;
-        }
-      }
-
-      // If all endpoints failed, throw the last error
-      if (!success && lastError) {
-        throw lastError;
-      }
-
-      // If we reach here, at least one of the notification methods was successful
-      setSubmitMessage(
-        supabaseSuccess
-          ? 'Thank you for your message! We will get back to you soon.'
-          : 'Your message was sent, but there was an issue saving it to our database. We will still contact you soon.'
+      // Send email using EmailJS
+      const result = await emailjs.sendForm(
+        'service_abhijitpower', // EmailJS service ID
+        'template_contact_form', // EmailJS template ID
+        formRef.current,
+        '4aPK-KWk8Vh3rcA7K' // EmailJS public key
       );
+
+      if (result.text !== 'OK') {
+        throw new Error(`Failed to send email: ${result.text}`);
+      }
+
+      console.log('Email sent successfully:', result.text);
+
+      // Set success message
+      setSubmitMessage('Thank you for your message! We will get back to you soon.');
 
       // Reset form
       setFormData({
@@ -276,7 +199,7 @@ const Contact: React.FC = () => {
     } catch (error) {
       console.error('Error in form submission:', error);
 
-      // Show a more specific error message if possible
+      // Show a specific error message
       if (error instanceof Error) {
         setSubmitError(
           `There was an error sending your message: ${error.message}. Please try again or contact us directly.`
@@ -459,7 +382,9 @@ const Contact: React.FC = () => {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit}>
+              <form ref={formRef} onSubmit={handleSubmit}>
+                {/* Hidden field for recipient email */}
+                <input type="hidden" name="to_email" value="abhijit.genset@gmail.com" />
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                     Your Name
@@ -467,7 +392,7 @@ const Contact: React.FC = () => {
                   <input
                     type="text"
                     id="name"
-                    name="name"
+                    name="user_name"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -483,7 +408,7 @@ const Contact: React.FC = () => {
                     <input
                       type="email"
                       id="email"
-                      name="email"
+                      name="user_email"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -498,7 +423,7 @@ const Contact: React.FC = () => {
                     <input
                       type="tel"
                       id="phone"
-                      name="phone"
+                      name="user_phone"
                       value={formData.phone}
                       onChange={handleChange}
                       required
@@ -513,7 +438,7 @@ const Contact: React.FC = () => {
                   </label>
                   <select
                     id="service"
-                    name="service"
+                    name="service_type"
                     value={formData.service}
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
