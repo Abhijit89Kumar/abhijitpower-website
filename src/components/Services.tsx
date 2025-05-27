@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { services, getServiceIcon } from '../data';
-import { ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const Services: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<'all' | 'generator' | 'tractor'>('all');
+  const [activeCategory] = useState<'all' | 'generator' | 'tractor'>('all');
 
   const filteredServices = activeCategory === 'all'
     ? services
@@ -20,45 +20,45 @@ const Services: React.FC = () => {
         <div className="flex flex-col items-center mb-12">
           <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1 rounded-full mb-4">What We Offer</span>
           <h2 className="section-title">Our Services</h2>
-          <p className="text-gray-600 max-w-2xl text-center mt-4">We provide comprehensive sales and service solutions for Mahindra Generators and Growmax Tractors</p>
+          <p className="text-gray-600 max-w-2xl text-center mt-4">Abhijit Power takes care of the entire value chain of customers. This not only covers areas like personalized transportation of the DG sets, Installation & Commissioning etc., but also encompasses the Annual Maintenance Contracts at the other end of the spectrum</p>
         </div>
 
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex rounded-full shadow-md p-1.5 bg-white border border-gray-100">
-            <button
-              onClick={() => setActiveCategory('all')}
-              className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                activeCategory === 'all'
-                  ? 'bg-primary text-white shadow-md'
-                  : 'text-gray-700 hover:bg-gray-50'
-              }`}
-            >
-              All Services
-            </button>
-            <button
-              onClick={() => setActiveCategory('generator')}
-              className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                activeCategory === 'generator'
-                  ? 'bg-primary text-white shadow-md'
-                  : 'text-gray-700 hover:bg-gray-50'
-              }`}
-            >
-              Generators
-            </button>
-            <button
-              onClick={() => setActiveCategory('tractor')}
-              className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
-                activeCategory === 'tractor'
-                  ? 'bg-primary text-white shadow-md'
-                  : 'text-gray-700 hover:bg-gray-50'
-              }`}
-            >
-              Tractors
-            </button>
-          </div>
-        </div>
+        {/*<div className="flex justify-center mb-10">*/}
+        {/*  <div className="inline-flex rounded-full shadow-md p-1.5 bg-white border border-gray-100">*/}
+        {/*    <button*/}
+        {/*      onClick={() => setActiveCategory('all')}*/}
+        {/*      className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${*/}
+        {/*        activeCategory === 'all'*/}
+        {/*          ? 'bg-primary text-white shadow-md'*/}
+        {/*          : 'text-gray-700 hover:bg-gray-50'*/}
+        {/*      }`}*/}
+        {/*    >*/}
+        {/*      All Services*/}
+        {/*    </button>*/}
+        {/*    <button*/}
+        {/*      onClick={() => setActiveCategory('generator')}*/}
+        {/*      className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${*/}
+        {/*        activeCategory === 'generator'*/}
+        {/*          ? 'bg-primary text-white shadow-md'*/}
+        {/*          : 'text-gray-700 hover:bg-gray-50'*/}
+        {/*      }`}*/}
+        {/*    >*/}
+        {/*      Generators*/}
+        {/*    </button>*/}
+        {/*    <button*/}
+        {/*      onClick={() => setActiveCategory('tractor')}*/}
+        {/*      className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${*/}
+        {/*        activeCategory === 'tractor'*/}
+        {/*          ? 'bg-primary text-white shadow-md'*/}
+        {/*          : 'text-gray-700 hover:bg-gray-50'*/}
+        {/*      }`}*/}
+        {/*    >*/}
+        {/*      Tractors*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredServices.map((service, index) => {
             const Icon = getServiceIcon(service.icon);
             const bgImage = service.category === 'generator' ? '/assets/service-generator-bg.jpg' : '/assets/service-tractor-bg.jpg';
@@ -101,18 +101,19 @@ const Services: React.FC = () => {
 
         <div className="mt-20 text-center">
           <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4">Looking for custom solutions?</h3>
+            <h3 className="text-2xl font-semibold mb-4">Want to discuss your requirements?</h3>
             <p className="mb-8 text-lg text-gray-700 max-w-2xl mx-auto">
-              We offer tailored power and agricultural solutions to meet your specific requirements. Contact us today for a consultation.
+              We are here to help you find the perfect solution for your needs. <br />
+              Contact us today for a consultation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:7766908394"
-                className="btn btn-primary inline-flex items-center px-8 py-3"
-              >
-                <Phone className="mr-2 h-5 w-5" />
-                Call Us Now: 7766908394
-              </a>
+              {/*<a*/}
+              {/*  href="tel:7766908394"*/}
+              {/*  className="btn btn-primary inline-flex items-center px-8 py-3"*/}
+              {/*>*/}
+              {/*  <Phone className="mr-2 h-5 w-5" />*/}
+              {/*  Call Us Now: 7766908394*/}
+              {/*</a>*/}
               <Link
                 to="contact"
                 spy={true}

@@ -88,7 +88,7 @@ const Brochures: React.FC = () => {
         <div className="flex flex-col items-center mb-12">
           <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1 rounded-full mb-4">Resources</span>
           <h2 className="section-title">Product Brochures</h2>
-          <p className="text-gray-600 max-w-2xl text-center mt-4">Download detailed specifications and information about our Mahindra Generators and Growmax Tractors</p>
+          <p className="text-gray-600 max-w-2xl text-center mt-4">Download detailed specifications and information about our Mahindra Generators and Gromax Tractors</p>
         </div>
 
         <div className="flex justify-center mb-10">
@@ -155,7 +155,7 @@ const Brochures: React.FC = () => {
                 <div className="p-6">
                   <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{brochure.name}</h3>
                   <p className="text-gray-600 text-sm mb-4">
-                    {brochure.category === 'generator' ? 'Mahindra Powerol' : 'Growmax Tractors'} - PDF Document
+                    {brochure.category === 'generator' ? 'Mahindra Powerol' : 'Gromax Tractors'} - PDF Document
                   </p>
 
                   <div className="flex items-center justify-between">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X, Phone, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { createRoot } from 'react-dom/client';
 import { navLinks, contactInfo } from '../data';
 import FallbackLogo from './FallbackLogo';
@@ -38,17 +38,17 @@ const Navbar: React.FC = () => {
         <div className="bg-primary text-white py-1 text-xs hidden md:block">
           <div className="container flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              <a href={`tel:${contactInfo.phone[0]}`} className="flex items-center hover:text-white/90 transition-colors">
-                <Phone className="h-3 w-3 mr-1" />
-                {contactInfo.phone[0]}
-              </a>
-              <span className="text-white/50">|</span>
-              <span>{contactInfo.hours}</span>
+              {/*<a href={`tel:${contactInfo.phone[0]}`} className="flex items-center hover:text-white/90 transition-colors">*/}
+              {/*  <Phone className="h-3 w-3 mr-1" />*/}
+              {/*  {contactInfo.phone[0]}*/}
+              {/*</a>*/}
+              {/*<span className="text-white/50">|</span>*/}
+              {/*<span>{contactInfo.hours}</span>*/}
             </div>
-            <div className="flex items-center space-x-3">
-              <a href="#" className="hover:text-white/90 transition-colors">Facebook</a>
-              <a href="#" className="hover:text-white/90 transition-colors">Instagram</a>
-            </div>
+            {/*<div className="flex items-center space-x-3">*/}
+            {/*  <a href="#" className="hover:text-white/90 transition-colors">Facebook</a>*/}
+            {/*  <a href="#" className="hover:text-white/90 transition-colors">Instagram</a>*/}
+            {/*</div>*/}
           </div>
         </div>
       )}
@@ -79,8 +79,8 @@ const Navbar: React.FC = () => {
             />
           </div>
           <div className={`transition-colors ${scrolled ? 'text-gray-900' : 'text-white'}`}>
-            <p className="text-sm font-semibold">Authorized Dealer</p>
-            <p className="text-xs">Mahindra Powerol & Gromax</p>
+            <p className="text-sm font-semibold"> </p>
+            <p className="text-xs"> </p>
           </div>
         </a>
 
@@ -155,27 +155,27 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
 
-            <div className="pt-4">
-              <a
-                href={`tel:${contactInfo.phone[0]}`}
-                className="flex items-center text-gray-700 hover:text-primary transition-colors mb-4 px-4"
-              >
-                <Phone className="h-4 w-4 mr-2" />
-                {contactInfo.phone[0]}
-              </a>
+            {/*<div className="pt-4">*/}
+            {/*  <a*/}
+            {/*    href={`tel:${contactInfo.phone[0]}`}*/}
+            {/*    className="flex items-center text-gray-700 hover:text-primary transition-colors mb-4 px-4"*/}
+            {/*  >*/}
+            {/*    <Phone className="h-4 w-4 mr-2" />*/}
+            {/*    {contactInfo.phone[0]}*/}
+            {/*  </a>*/}
 
-              <Link
-                to="contact"
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="btn btn-primary w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact Us
-              </Link>
-            </div>
+            {/*  <Link*/}
+            {/*    to="contact"*/}
+            {/*    spy={true}*/}
+            {/*    smooth={true}*/}
+            {/*    offset={-70}*/}
+            {/*    duration={500}*/}
+            {/*    className="btn btn-primary w-full"*/}
+            {/*    onClick={() => setIsOpen(false)}*/}
+            {/*  >*/}
+            {/*    Contact Us*/}
+            {/*  </Link>*/}
+            {/*</div>*/}
           </nav>
         </div>
       )}

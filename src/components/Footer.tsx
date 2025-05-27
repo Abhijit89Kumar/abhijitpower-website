@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-scroll';
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin, ArrowRight, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight, Clock } from 'lucide-react';
 import { navLinks, locations, contactInfo } from '../data';
 
 const Footer: React.FC = () => {
@@ -38,38 +38,38 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Providing reliable power solutions and agricultural equipment with exceptional service since 2010.
+              Providing reliable power solutions and agricultural equipment with exceptional service since 2018
             </p>
-            <div className="flex space-x-3">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"
-                aria-label="Facebook"
-              >
-                <Facebook size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"
-                aria-label="Instagram"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"
-                aria-label="Twitter"
-              >
-                <Twitter size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={18} />
-              </a>
-            </div>
+            {/*<div className="flex space-x-3">*/}
+              {/*<a*/}
+              {/*  href="#"*/}
+              {/*  className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"*/}
+              {/*  aria-label="Facebook"*/}
+              {/*>*/}
+              {/*  <Facebook size={18} />*/}
+              {/*</a>*/}
+              {/*<a*/}
+              {/*  href="#"*/}
+              {/*  className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"*/}
+              {/*  aria-label="Instagram"*/}
+              {/*>*/}
+              {/*  <Instagram size={18} />*/}
+              {/*</a>*/}
+              {/*<a*/}
+              {/*  href="#"*/}
+              {/*  className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"*/}
+              {/*  aria-label="Twitter"*/}
+              {/*>*/}
+              {/*  <Twitter size={18} />*/}
+              {/*</a>*/}
+              {/*<a*/}
+              {/*  href="#"*/}
+              {/*  className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-primary transition-all duration-300 border border-white/5"*/}
+              {/*  aria-label="LinkedIn"*/}
+              {/*>*/}
+              {/*  <Linkedin size={18} />*/}
+              {/*</a>*/}
+            {/*</div>*/}
           </div>
 
           <div>
@@ -136,15 +136,36 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-medium text-gray-400 mb-1">Phone</h4>
-                  {contactInfo.phone.map((number) => (
+                  <div className="space-y-1">
                     <a
-                      key={number}
-                      href={`tel:${number}`}
-                      className="block text-gray-300 hover:text-white transition-colors"
+                      href={`tel:${contactInfo.phone.gensetSales}`}
+                      className="block text-gray-300 hover:text-white transition-colors text-sm"
                     >
-                      {number}
+                      <span className="text-xs text-gray-500">{contactInfo.phoneLabels.gensetSales}:</span><br />
+                      {contactInfo.phone.gensetSales}
                     </a>
-                  ))}
+                    <a
+                      href={`tel:${contactInfo.phone.tractorSales}`}
+                      className="block text-gray-300 hover:text-white transition-colors text-sm"
+                    >
+                      <span className="text-xs text-gray-500">{contactInfo.phoneLabels.tractorSales}:</span><br />
+                      {contactInfo.phone.tractorSales}
+                    </a>
+                    <a
+                      href={`tel:${contactInfo.phone.serviceSpare}`}
+                      className="block text-gray-300 hover:text-white transition-colors text-sm"
+                    >
+                      <span className="text-xs text-gray-500">{contactInfo.phoneLabels.serviceSpare}:</span><br />
+                      {contactInfo.phone.serviceSpare}
+                    </a>
+                    <a
+                      href={`tel:${contactInfo.phone.headOfDealership}`}
+                      className="block text-gray-300 hover:text-white transition-colors text-sm"
+                    >
+                      <span className="text-xs text-gray-500">{contactInfo.phoneLabels.headOfDealership}:</span><br />
+                      {contactInfo.phone.headOfDealership}
+                    </a>
+                  </div>
                 </div>
               </li>
               <li className="flex items-start bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/5">
@@ -170,9 +191,9 @@ const Footer: React.FC = () => {
                 </div>
                 <div className="w-full">
                   <h4 className="text-sm font-medium text-gray-400 mb-1">Working Hours</h4>
-                  <p className="text-gray-300 text-sm">Monday - Saturday</p>
-                  <p className="text-gray-300 text-sm">9:00 AM - 6:00 PM</p>
-                  <p className="text-gray-300 text-sm">Sunday: Closed</p>
+                  <p className="text-gray-300 text-sm">Monday - Sunday</p>
+                  {/*<p className="text-gray-300 text-sm">9:00 AM - 6:00 PM</p>*/}
+                  {/*<p className="text-gray-300 text-sm">Sunday: Closed</p>*/}
                 </div>
               </li>
             </ul>
@@ -182,7 +203,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-center md:text-left text-sm mb-4 md:mb-0">
-              &copy; {year} Abhijit Power. All rights reserved. Authorized dealer of Mahindra Powerol and Growmax Tractors.
+              &copy; {year} Abhijit Power. All rights reserved. Authorized dealer of Mahindra Powerol and Gromax Tractors.
             </p>
             <div className="flex space-x-4">
               <Link

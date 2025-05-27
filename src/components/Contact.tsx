@@ -251,15 +251,36 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-xl mb-2 text-white">Phone</h4>
-                    {contactInfo.phone.map((number) => (
+                    <div className="space-y-2">
                       <a
-                        key={number}
-                        href={`tel:${number}`}
-                        className="block text-gray-300 hover:text-primary transition-colors text-lg"
+                        href={`tel:${contactInfo.phone.gensetSales}`}
+                        className="block text-gray-300 hover:text-primary transition-colors"
                       >
-                        {number}
+                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.gensetSales}:</span><br />
+                        <span className="text-lg">{contactInfo.phone.gensetSales}</span>
                       </a>
-                    ))}
+                      <a
+                        href={`tel:${contactInfo.phone.tractorSales}`}
+                        className="block text-gray-300 hover:text-primary transition-colors"
+                      >
+                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.tractorSales}:</span><br />
+                        <span className="text-lg">{contactInfo.phone.tractorSales}</span>
+                      </a>
+                      <a
+                        href={`tel:${contactInfo.phone.serviceSpare}`}
+                        className="block text-gray-300 hover:text-primary transition-colors"
+                      >
+                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.serviceSpare}:</span><br />
+                        <span className="text-lg">{contactInfo.phone.serviceSpare}</span>
+                      </a>
+                      <a
+                        href={`tel:${contactInfo.phone.headOfDealership}`}
+                        className="block text-gray-300 hover:text-primary transition-colors"
+                      >
+                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.headOfDealership}:</span><br />
+                        <span className="text-lg">{contactInfo.phone.headOfDealership}</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -288,7 +309,7 @@ const Contact: React.FC = () => {
                   <div>
                     <h4 className="font-medium text-xl mb-2 text-white">Working Hours</h4>
                     <p className="text-gray-300">{contactInfo.hours}</p>
-                    <p className="text-gray-300">Sunday: Closed</p>
+                    {/*<p className="text-gray-300">Sunday: Closed</p>*/}
                   </div>
                 </div>
               </div>
@@ -444,8 +465,13 @@ const Contact: React.FC = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
                   >
                     <option value="generator">Mahindra Generators</option>
-                    <option value="tractor">Growmax Tractors</option>
+                    <option value="tractor">Gromax Tractors</option>
                     <option value="service">Service & Maintenance</option>
+                    <option value="spare-parts">Spare Parts</option>
+                    <option value="amc">AMC & Warranty</option>
+                    <option value="installation">Installation & Commissioning</option>
+                    <option value="finance">Finance Options</option>
+                    <option value="dealership">Dealership Inquiry</option>
                     <option value="other">Other</option>
                   </select>
                 </div>

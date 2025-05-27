@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { testimonials } from '../data';
-import { Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 const Testimonials: React.FC = () => {
   const [active, setActive] = useState(0);
@@ -22,13 +22,13 @@ const Testimonials: React.FC = () => {
 
       <div className="container relative">
         <div className="flex flex-col items-center mb-12">
-          <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1 rounded-full mb-4">Testimonials</span>
-          <h2 className="section-title">What Our Clients Say</h2>
-          <p className="text-gray-600 max-w-2xl text-center mt-4">Hear from our satisfied customers about their experience with Abhijit Power's products and services</p>
+          <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1 rounded-full mb-4">Happy Customers</span>
+          <h2 className="section-title">Our Happy Customers</h2>
+          <p className="text-gray-600 max-w-2xl text-center mt-4">Moments with our valued customers who trust Abhijit Power for their generator and tractor needs</p>
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-8">
-          <div className="overflow-hidden rounded-xl shadow-xl">
+        <div className="relative max-w-4xl mx-auto px-8">
+          <div className="overflow-hidden rounded-2xl shadow-2xl">
             <div
               className="flex transition-transform duration-500"
               style={{ transform: `translateX(-${active * 100}%)` }}
@@ -39,51 +39,32 @@ const Testimonials: React.FC = () => {
                   className="w-full flex-shrink-0 p-0"
                 >
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-xl overflow-hidden shadow-md relative flex flex-col md:flex-row"
+                    className="relative bg-white rounded-2xl overflow-hidden shadow-lg"
                   >
-                    <div className="md:w-2/5 bg-gray-100 relative">
+                    {/* Customer Image */}
+                    <div className="relative h-[500px] bg-gradient-to-br from-gray-100 to-gray-50 p-4">
                       {testimonial.image ? (
                         <img
                           src={testimonial.image}
-                          alt={testimonial.name}
-                          className="w-full h-full object-cover absolute inset-0"
+                          alt={`Happy Customer ${testimonial.id}`}
+                          className="w-full h-full object-contain rounded-lg"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                          <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center text-4xl font-bold text-primary">
-                            {testimonial.name.charAt(0)}
+                        <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center rounded-lg">
+                          <div className="w-32 h-32 rounded-full bg-white flex items-center justify-center text-6xl font-bold text-primary shadow-lg">
+                            {testimonial.id}
                           </div>
                         </div>
                       )}
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
-                        <h3 className="text-xl font-semibold">{testimonial.name}</h3>
-                        <p className="text-gray-200 text-sm">{testimonial.role}</p>
-                      </div>
-                    </div>
 
-                    <div className="md:w-3/5 p-8 flex flex-col justify-center">
-                      <div className="text-primary mb-4">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-20">
-                          <path d="M14.4 24H8V17.6C8 12.64 12 8.64 16.96 8.64V14.4C14.4 14.4 12.32 16.48 12.32 19.04V24H14.4ZM30.4 24H24V17.6C24 12.64 28 8.64 32.96 8.64V14.4C30.4 14.4 28.32 16.48 28.32 19.04V24H30.4Z" fill="currentColor"/>
-                        </svg>
-                      </div>
-
-                      <p className="text-gray-700 mb-6 text-lg leading-relaxed">{testimonial.comment}</p>
-
-                      <div className="flex mt-auto">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-5 h-5 ${
-                              i < testimonial.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'
-                            }`}
-                          />
-                        ))}
-                      </div>
+                      {/* Customer number badge */}
+                      {/*<div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-white/50">*/}
+                      {/*  Happy Customer {testimonial.id}*/}
+                      {/*</div>*/}
                     </div>
                   </motion.div>
                 </div>
@@ -123,7 +104,7 @@ const Testimonials: React.FC = () => {
 
         <div className="mt-16 text-center">
           <a href="#contact" className="inline-flex items-center text-primary font-medium hover:underline">
-            Share your experience with us <ArrowRight className="ml-2 h-4 w-4" />
+            Join our happy customers <ArrowRight className="ml-2 h-4 w-4" />
           </a>
         </div>
       </div>

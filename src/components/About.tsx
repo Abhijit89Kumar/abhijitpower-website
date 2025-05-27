@@ -13,7 +13,7 @@ const About: React.FC = () => {
         <div className="flex flex-col items-center mb-12">
           <span className="text-sm font-medium text-primary bg-primary/10 px-4 py-1 rounded-full mb-4">Our Story</span>
           <h2 className="section-title">About Abhijit Power</h2>
-          <p className="text-gray-600 max-w-2xl text-center mt-4">Your trusted partner for Mahindra Generators and Growmax Tractors since 2010</p>
+          <p className="text-gray-600 max-w-2xl text-center mt-4">Your trusted partner for Mahindra Generators and Gromax Tractors since 2018</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -31,8 +31,8 @@ const About: React.FC = () => {
                     alt="Abhijit Power"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      // Fallback to generator image if about-bg fails to load
-                      e.currentTarget.src = '/assets/mahindra-generator.jpg';
+                      // Fallback to award image if about-bg fails to load
+                      e.currentTarget.src = '/assets/abhijit-power-team.jpg';
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
@@ -49,11 +49,11 @@ const About: React.FC = () => {
 
                   <div className="flex flex-wrap gap-4 mt-4">
                     <div className="bg-primary/10 rounded-lg p-4 flex-1">
-                      <h4 className="text-2xl font-bold text-primary">12+</h4>
+                      <h4 className="text-2xl font-bold text-primary">25+</h4>
                       <p className="text-sm text-gray-600">Years Experience</p>
                     </div>
                     <div className="bg-primary/10 rounded-lg p-4 flex-1">
-                      <h4 className="text-2xl font-bold text-primary">500+</h4>
+                      <h4 className="text-2xl font-bold text-primary">2000+</h4>
                       <p className="text-sm text-gray-600">Happy Clients</p>
                     </div>
                     <div className="bg-primary/10 rounded-lg p-4 flex-1">
@@ -73,33 +73,33 @@ const About: React.FC = () => {
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-semibold mb-6 text-gray-900">
-              Your Trusted Partner Since 2010
+              Your Trusted Partner Since Late 2018
             </h3>
 
             <div className="space-y-6">
               <p className="text-gray-600 text-lg leading-relaxed">
-                Abhijit Power is an authorized dealer of Mahindra Powerol generators and Gromax tractors, serving customers across Telangana with reliable power solutions and agricultural equipment.
+                Abhijit Power is an authorized dealer of Mahindra Powerol generators and Gromax tractors, serving customers across Hyderabad, Mahbubnagar, and Nalgonda with reliable power solutions and agricultural equipment
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-start">
                   <CheckCircle className="h-5 w-5 text-primary mt-1 mr-3 flex-shrink-0" />
                   <p className="text-gray-700">
-                    <span className="font-medium">Reliable Power Solutions:</span> Our Mahindra Powerol DG sets offer the best recovery time in their category and effective governing systems for voltage control.
+                    <span className="font-medium">Reliable Power Solutions:</span> Our Mahindra Powerol DG sets offer the best recovery time in their category and effective governing systems from 5 KVA to 625 KVA
                   </p>
                 </div>
 
                 <div className="flex items-start">
                   <CheckCircle className="h-5 w-5 text-primary mt-1 mr-3 flex-shrink-0" />
                   <p className="text-gray-700">
-                    <span className="font-medium">Agricultural Excellence:</span> Through TRAKSTAR Tractors and TRAKMATE Farm Implements, we help farmers achieve maximum growth from their investments.
+                    <span className="font-medium">Agricultural Excellence:</span> Through TRAKSTAR Tractors and TRAKMATE Farm Implements, we help farmers achieve maximum growth from their investments from 40 HP to 60 HP
                   </p>
                 </div>
 
                 <div className="flex items-start">
                   <CheckCircle className="h-5 w-5 text-primary mt-1 mr-3 flex-shrink-0" />
                   <p className="text-gray-700">
-                    <span className="font-medium">Comprehensive Support:</span> All products include transportation through Mahindra Transport Solutions Group, authorized dealer installation, and annual maintenance contracts.
+                    <span className="font-medium">Retail finance for customers:</span> New Genset and Tractor finance available through Mahindra Finance and HDFC Bank Ltd
                   </p>
                 </div>
               </div>
@@ -113,40 +113,190 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        <div className="mt-24 bg-gradient-to-r from-gray-50 via-white to-gray-50 rounded-2xl p-10 shadow-lg border border-gray-100">
-          <h3 className="text-2xl font-semibold text-center mb-8">Our Trusted Brands</h3>
-          <div className="flex flex-wrap justify-center items-center gap-12">
+        {/* Mahindra Powerol Section */}
+        <div className="mt-24">
+          <div className="flex flex-col items-center mb-12">
+            <span className="text-sm font-medium text-red-600 bg-red-50 px-4 py-1 rounded-full mb-4">Our Partner</span>
+            <h2 className="section-title text-red-600">About Mahindra Powerol</h2>
+            <p className="text-gray-600 max-w-2xl text-center mt-4">India's No.1 Genset Manufacturer in FY25 as recognized by Frost & Sullivan</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              <img
-                src="/assets/powerol-logo.png"
-                alt="Mahindra Powerol"
-                className="h-20 object-contain"
-              />
-              <p className="text-center text-sm text-gray-500 mt-3">Mahindra Powerol</p>
+              <div className="relative">
+                <div className="bg-white rounded-xl overflow-hidden shadow-xl border-2 border-red-100">
+                  <div className="relative h-[300px] overflow-hidden">
+                    <img
+                      src="/assets/powerol-logo.png"
+                      alt="Mahindra Powerol"
+                      className="w-full h-full object-contain p-8 bg-gradient-to-br from-red-50 to-white"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-red-50 rounded-lg p-4 text-center">
+                        <h4 className="text-xl font-bold text-red-600">5-625</h4>
+                        <p className="text-sm text-gray-600">kVA Range</p>
+                      </div>
+                      <div className="bg-red-50 rounded-lg p-4 text-center">
+                        <h4 className="text-xl font-bold text-red-600">400+</h4>
+                        <p className="text-sm text-gray-600">Service Points</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              <img
-                src="/assets/gromax-logo.png"
-                alt="Gromax"
-                className="h-20 object-contain"
-              />
-              <p className="text-center text-sm text-gray-500 mt-3">Gromax Tractors</p>
+              <div className="space-y-6">
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Mahindra Powerol, a division of Mahindra & Mahindra, offers a reliable range of diesel and gas generator sets that combine fuel efficiency, low noise, and full CPCB compliance.
+                </p>
+
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Product Range:</span> Diesel and gas gensets from 5 kVA to 625 kVA, including silent variants
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Performance:</span> Rapid load response, precise voltage control, and optimized fuel consumption
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Applications:</span> Telecom towers, industrial plants, hospitals, hotels, and residential complexes
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Service Network:</span> 400+ sales and service touch points, including 200+ dealers and 70+ exclusive showrooms
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Key Features:</span> Fuel-efficient engines, low vibration and noise levels, easy finance schemes through Mahindra Finance
+                    </p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Gromax Section */}
+        <div className="mt-24">
+          <div className="flex flex-col items-center mb-12">
+            <span className="text-sm font-medium text-green-600 bg-green-50 px-4 py-1 rounded-full mb-4">Our Partner</span>
+            <h2 className="section-title text-green-600">About Gromax Agri Equipment</h2>
+            <p className="text-gray-600 max-w-2xl text-center mt-4">A 60:40 joint venture between Mahindra & Mahindra Ltd. and the Government of Gujarat</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="space-y-6">
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Gromax Agri Equipment Ltd., formerly known as Mahindra Gujarat Tractor Ltd., is dedicated to providing affordable and high-performance mechanization solutions to Indian farmers since 1999.
+                </p>
+
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Joint Venture:</span> Strategic partnership with 60% ownership by Mahindra & Mahindra Ltd. and 40% by Government of Gujarat
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Product Range:</span> Over 40 tractor variants in the 20–50 HP segment, including 4WD models and orchard-specialist 2WD tractors
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Brands & Implements:</span> Markets tractors under Trakstar and Hindustan brands, complemented by Trakmate farm implements
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Manufacturing Excellence:</span> State-of-the-art 55-acre facility in Vadodara, Gujarat with rigorous quality control
+                    </p>
+                  </div>
+
+                  <div className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      <span className="font-medium">Customer Focus:</span> "Customer First" philosophy with affordable pricing and innovative saffron and black color schemes
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="relative">
+                <div className="bg-white rounded-xl overflow-hidden shadow-xl border-2 border-green-100">
+                  <div className="relative h-[300px] overflow-hidden">
+                    <img
+                      src="/assets/gromax-logo.png"
+                      alt="Gromax Agri Equipment"
+                      className="w-full h-full object-contain p-8 bg-gradient-to-br from-green-50 to-white"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-green-50 rounded-lg p-4 text-center">
+                        <h4 className="text-xl font-bold text-green-600">40+</h4>
+                        <p className="text-sm text-gray-600">Tractor Variants</p>
+                      </div>
+                      <div className="bg-green-50 rounded-lg p-4 text-center">
+                        <h4 className="text-xl font-bold text-green-600">20-50</h4>
+                        <p className="text-sm text-gray-600">HP Range</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
