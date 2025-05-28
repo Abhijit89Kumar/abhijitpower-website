@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://abhijitpower.com/sitemap.xml
+Sitemap: https://www.abhijitpower.in/sitemap.xml
 
 # Disallow crawling of admin or private areas
 Disallow: /admin/
