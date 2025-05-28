@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { contactInfo, locations } from '../data';
-import { Phone, Mail, Clock, Send, Bug, ArrowRight } from 'lucide-react';
+import { contactInfo } from '../data';
+import { Phone, Send, Bug } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import EmailFallback from './EmailFallback';
 
@@ -235,106 +235,174 @@ const Contact: React.FC = () => {
           <p className="text-gray-300 max-w-2xl text-center mt-4">Have questions about our products or services? Our team is ready to assist you.</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 px-40">
+          {/* Phone Catalog Section */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-white"
+            className="bg-white rounded-2xl shadow-xl p-8 mb-12 max-w-4xl mx-auto border border-gray-100"
           >
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 shadow-xl">
-              <div className="space-y-8">
-                <div className="flex items-start">
-                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-xl mb-2 text-white">Phone</h4>
-                    <div className="space-y-2">
-                      <a
-                        href={`tel:${contactInfo.phone.gensetSales}`}
-                        className="block text-gray-300 hover:text-primary transition-colors"
-                      >
-                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.gensetSales}:</span><br />
-                        <span className="text-lg">{contactInfo.phone.gensetSales}</span>
-                      </a>
-                      <a
-                        href={`tel:${contactInfo.phone.tractorSales}`}
-                        className="block text-gray-300 hover:text-primary transition-colors"
-                      >
-                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.tractorSales}:</span><br />
-                        <span className="text-lg">{contactInfo.phone.tractorSales}</span>
-                      </a>
-                      <a
-                        href={`tel:${contactInfo.phone.serviceSpare}`}
-                        className="block text-gray-300 hover:text-primary transition-colors"
-                      >
-                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.serviceSpare}:</span><br />
-                        <span className="text-lg">{contactInfo.phone.serviceSpare}</span>
-                      </a>
-                      <a
-                        href={`tel:${contactInfo.phone.headOfDealership}`}
-                        className="block text-gray-300 hover:text-primary transition-colors"
-                      >
-                        <span className="text-sm text-gray-400">{contactInfo.phoneLabels.headOfDealership}:</span><br />
-                        <span className="text-lg">{contactInfo.phone.headOfDealership}</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-semibold mb-2">Contact Numbers</h3>
+              <p className="text-gray-600">Reach out to us for specific needs</p>
+            </div>
 
-                <div className="flex items-start">
-                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-xl mb-2 text-white">Email</h4>
-                    {contactInfo.email.map((email) => (
-                      <a
-                        key={email}
-                        href={`mailto:${email}`}
-                        className="block text-gray-300 hover:text-primary transition-colors"
-                      >
-                        {email}
-                      </a>
-                    ))}
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center p-4 bg-red-50 rounded-xl border border-red-100">
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Phone className="h-6 w-6 text-red-600" />
                 </div>
-
-                <div className="flex items-start">
-                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">
-                    <Clock className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-xl mb-2 text-white">Working Hours</h4>
-                    <p className="text-gray-300">{contactInfo.hours}</p>
-                    {/*<p className="text-gray-300">Sunday: Closed</p>*/}
-                  </div>
-                </div>
+                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.gensetSales}</h4>
+                <a
+                  href={`tel:${contactInfo.phone.gensetSales}`}
+                  className="text-red-600 hover:text-red-700 font-medium transition-colors"
+                >
+                  {contactInfo.phone.gensetSales}
+                </a>
               </div>
 
-              <div className="mt-10 pt-8 border-t border-white/10">
-                <h4 className="font-medium text-xl mb-4 text-white">Visit Our Offices</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {locations.map(location => (
-                    <div key={location.id} className="bg-white/5 rounded-lg p-4">
-                      <h5 className="font-medium mb-2">{location.name}</h5>
-                      <p className="text-gray-300 text-sm mb-3">{location.address}</p>
-                      <a
-                        href={location.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary text-sm hover:underline inline-flex items-center"
-                      >
-                        Get Directions <ArrowRight className="ml-1 h-3 w-3" />
-                      </a>
-                    </div>
-                  ))}
+              <div className="text-center p-4 bg-green-50 rounded-xl border border-green-100">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Phone className="h-6 w-6 text-green-600" />
                 </div>
+                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.tractorSales}</h4>
+                <a
+                  href={`tel:${contactInfo.phone.tractorSales}`}
+                  className="text-green-600 hover:text-green-700 font-medium transition-colors"
+                >
+                  {contactInfo.phone.tractorSales}
+                </a>
+              </div>
+
+              <div className="text-center p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Phone className="h-6 w-6 text-blue-600" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.serviceSpare}</h4>
+                <a
+                  href={`tel:${contactInfo.phone.serviceSpare}`}
+                  className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                >
+                  {contactInfo.phone.serviceSpare}
+                </a>
+              </div>
+
+              <div className="text-center p-4 bg-purple-50 rounded-xl border border-purple-100">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Phone className="h-6 w-6 text-purple-600" />
+                </div>
+                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.headOfDealership}</h4>
+                <a
+                  href={`tel:${contactInfo.phone.headOfDealership}`}
+                  className="text-purple-600 hover:text-purple-700 font-medium transition-colors"
+                >
+                  {contactInfo.phone.headOfDealership}
+                </a>
               </div>
             </div>
           </motion.div>
+
+          {/*<motion.div*/}
+          {/*  initial={{ opacity: 0, x: -20 }}*/}
+          {/*  whileInView={{ opacity: 1, x: 0 }}*/}
+          {/*  transition={{ duration: 0.6 }}*/}
+          {/*  viewport={{ once: true }}*/}
+          {/*  className="text-white"*/}
+          {/*>*/}
+          {/*  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 shadow-xl">*/}
+          {/*    <div className="space-y-8">*/}
+          {/*      <div className="flex items-start">*/}
+          {/*        <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">*/}
+          {/*          <Phone className="h-6 w-6 text-primary" />*/}
+          {/*        </div>*/}
+          {/*        <div>*/}
+          {/*          <h4 className="font-medium text-xl mb-2 text-white">Phone</h4>*/}
+          {/*          <div className="space-y-2">*/}
+          {/*            <a*/}
+          {/*              href={`tel:${contactInfo.phone.gensetSales}`}*/}
+          {/*              className="block text-gray-300 hover:text-primary transition-colors"*/}
+          {/*            >*/}
+          {/*              <span className="text-sm text-gray-400">{contactInfo.phoneLabels.gensetSales}:</span><br />*/}
+          {/*              <span className="text-lg">{contactInfo.phone.gensetSales}</span>*/}
+          {/*            </a>*/}
+          {/*            <a*/}
+          {/*              href={`tel:${contactInfo.phone.tractorSales}`}*/}
+          {/*              className="block text-gray-300 hover:text-primary transition-colors"*/}
+          {/*            >*/}
+          {/*              <span className="text-sm text-gray-400">{contactInfo.phoneLabels.tractorSales}:</span><br />*/}
+          {/*              <span className="text-lg">{contactInfo.phone.tractorSales}</span>*/}
+          {/*            </a>*/}
+          {/*            <a*/}
+          {/*              href={`tel:${contactInfo.phone.serviceSpare}`}*/}
+          {/*              className="block text-gray-300 hover:text-primary transition-colors"*/}
+          {/*            >*/}
+          {/*              <span className="text-sm text-gray-400">{contactInfo.phoneLabels.serviceSpare}:</span><br />*/}
+          {/*              <span className="text-lg">{contactInfo.phone.serviceSpare}</span>*/}
+          {/*            </a>*/}
+          {/*            <a*/}
+          {/*              href={`tel:${contactInfo.phone.headOfDealership}`}*/}
+          {/*              className="block text-gray-300 hover:text-primary transition-colors"*/}
+          {/*            >*/}
+          {/*              <span className="text-sm text-gray-400">{contactInfo.phoneLabels.headOfDealership}:</span><br />*/}
+          {/*              <span className="text-lg">{contactInfo.phone.headOfDealership}</span>*/}
+          {/*            </a>*/}
+          {/*          </div>*/}
+          {/*        </div>*/}
+          {/*      </div>*/}
+
+          {/*      <div className="flex items-start">*/}
+          {/*        <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">*/}
+          {/*          <Mail className="h-6 w-6 text-primary" />*/}
+          {/*        </div>*/}
+          {/*        <div>*/}
+          {/*          <h4 className="font-medium text-xl mb-2 text-white">Email</h4>*/}
+          {/*          {contactInfo.email.map((email) => (*/}
+          {/*            <a*/}
+          {/*              key={email}*/}
+          {/*              href={`mailto:${email}`}*/}
+          {/*              className="block text-gray-300 hover:text-primary transition-colors"*/}
+          {/*            >*/}
+          {/*              {email}*/}
+          {/*            </a>*/}
+          {/*          ))}*/}
+          {/*        </div>*/}
+          {/*      </div>*/}
+
+          {/*      <div className="flex items-start">*/}
+          {/*        <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mr-5 flex-shrink-0">*/}
+          {/*          <Clock className="h-6 w-6 text-primary" />*/}
+          {/*        </div>*/}
+          {/*        <div>*/}
+          {/*          <h4 className="font-medium text-xl mb-2 text-white">Working Hours</h4>*/}
+          {/*          <p className="text-gray-300">{contactInfo.hours}</p>*/}
+          {/*          /!*<p className="text-gray-300">Sunday: Closed</p>*!/*/}
+          {/*        </div>*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+
+          {/*    <div className="mt-10 pt-8 border-t border-white/10">*/}
+          {/*      <h4 className="font-medium text-xl mb-4 text-white">Visit Our Offices</h4>*/}
+          {/*      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">*/}
+          {/*        {locations.map(location => (*/}
+          {/*          <div key={location.id} className="bg-white/5 rounded-lg p-4">*/}
+          {/*            <h5 className="font-medium mb-2">{location.name}</h5>*/}
+          {/*            <p className="text-gray-300 text-sm mb-3">{location.address}</p>*/}
+          {/*            <a*/}
+          {/*              href={location.mapUrl}*/}
+          {/*              target="_blank"*/}
+          {/*              rel="noopener noreferrer"*/}
+          {/*              className="text-primary text-sm hover:underline inline-flex items-center"*/}
+          {/*            >*/}
+          {/*              Get Directions <ArrowRight className="ml-1 h-3 w-3" />*/}
+          {/*            </a>*/}
+          {/*          </div>*/}
+          {/*        ))}*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</motion.div>*/}
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -342,7 +410,7 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white rounded-xl p-8 shadow-xl">
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto border border-gray-100">
               <h3 className="text-2xl font-semibold mb-6">Send us a message</h3>
 
               {submitMessage && (
@@ -464,15 +532,12 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
                   >
-                    <option value="generator">Mahindra Generators</option>
-                    <option value="tractor">Gromax Tractors</option>
-                    <option value="service">Service & Maintenance</option>
-                    <option value="spare-parts">Spare Parts</option>
-                    <option value="amc">AMC & Warranty</option>
-                    <option value="installation">Installation & Commissioning</option>
-                    <option value="finance">Finance Options</option>
-                    <option value="dealership">Dealership Inquiry</option>
-                    <option value="other">Other</option>
+                    <option value="New Generator Requirement">New Generator Requirement</option>
+                    <option value="New Tractor Requirement">New Tractor Requirement</option>
+                    <option value="Service & Maintenance">Service & Maintenance</option>
+                    <option value="Spare Parts">Spare Parts</option>
+                    <option value="AMC & Warranty">AMC & Warranty</option>
+                    <option value="Installation & Commissioning">Installation & Commissioning</option>
                   </select>
                 </div>
 

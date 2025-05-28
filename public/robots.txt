@@ -16,13 +16,6 @@ Disallow: /dist/
 
 # Allow crawling of important pages and assets
 Allow: /assets/
-Allow: /#home
-Allow: /#services
-Allow: /#about
-Allow: /#locations
-Allow: /#contact
-Allow: /#testimonials
-Allow: /#brochures
 
 # SEO-friendly URLs (when implemented)
 Allow: /mahindra-generator-hyderabad

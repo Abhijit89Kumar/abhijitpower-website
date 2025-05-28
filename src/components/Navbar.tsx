@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { createRoot } from 'react-dom/client';
-import { navLinks, contactInfo } from '../data';
+import { navLinks } from '../data';
 import FallbackLogo from './FallbackLogo';
 import { handleImageError } from '../utils/imageUtils';
 
@@ -104,25 +104,34 @@ const Navbar: React.FC = () => {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden md:flex items-center space-x-4">
+          {/*<a*/}
+          {/*  href={`tel:${contactInfo.phone[0]}`}*/}
+          {/*  className={`flex items-center text-sm font-medium ${scrolled ? 'text-gray-700' : 'text-white'} hover:text-primary transition-colors`}*/}
+          {/*>*/}
+          {/*  /!*<Phone className="h-4 w-4 mr-2" />*!/*/}
+          {/*  /!*{contactInfo.phone[0]}*!/*/}
+          {/*</a>*/}
+
           <a
-            href={`tel:${contactInfo.phone[0]}`}
-            className={`flex items-center text-sm font-medium ${scrolled ? 'text-gray-700' : 'text-white'} hover:text-primary transition-colors`}
+            href="https://vyaparapp.in/store/ABHIJITPOWER1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`btn ${scrolled ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-red-600/90 backdrop-blur-sm text-white hover:bg-red-600 border border-red-500/20'} transition-all duration-300 text-sm px-2 py-2`}
           >
-            {/*<Phone className="h-4 w-4 mr-2" />*/}
-            {/*{contactInfo.phone[0]}*/}
+            Online Spare Parts Store
           </a>
 
-          <Link
-            to="contact"
-            spy={true}
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className={`btn ${scrolled ? 'btn-primary' : 'bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border border-white/20'} transition-all duration-300`}
-          >
-            Contact Us
-          </Link>
+          {/*<Link*/}
+          {/*  to="contact"*/}
+          {/*  spy={true}*/}
+          {/*  smooth={true}*/}
+          {/*  offset={-70}*/}
+          {/*  duration={500}*/}
+          {/*  className={`btn ${scrolled ? 'btn-primary' : 'bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border border-white/20'} transition-all duration-300`}*/}
+          {/*>*/}
+          {/*  Contact Us*/}
+          {/*</Link>*/}
         </div>
 
         {/* Mobile Menu Button */}
@@ -155,27 +164,37 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
 
-            {/*<div className="pt-4">*/}
-            {/*  <a*/}
-            {/*    href={`tel:${contactInfo.phone[0]}`}*/}
-            {/*    className="flex items-center text-gray-700 hover:text-primary transition-colors mb-4 px-4"*/}
-            {/*  >*/}
-            {/*    <Phone className="h-4 w-4 mr-2" />*/}
-            {/*    {contactInfo.phone[0]}*/}
-            {/*  </a>*/}
+            <div className="pt-4">
+              {/*<a*/}
+              {/*  href={`tel:${contactInfo.phone[0]}`}*/}
+              {/*  className="flex items-center text-gray-700 hover:text-primary transition-colors mb-4 px-4"*/}
+              {/*>*/}
+              {/*  <Phone className="h-4 w-4 mr-2" />*/}
+              {/*  {contactInfo.phone[0]}*/}
+              {/*</a>*/}
 
-            {/*  <Link*/}
-            {/*    to="contact"*/}
-            {/*    spy={true}*/}
-            {/*    smooth={true}*/}
-            {/*    offset={-70}*/}
-            {/*    duration={500}*/}
-            {/*    className="btn btn-primary w-full"*/}
-            {/*    onClick={() => setIsOpen(false)}*/}
-            {/*  >*/}
-            {/*    Contact Us*/}
-            {/*  </Link>*/}
-            {/*</div>*/}
+              <a
+                href="https://vyaparapp.in/store/ABHIJITPOWER1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn bg-red-600 hover:bg-red-700 text-white w-full mb-3"
+                onClick={() => setIsOpen(false)}
+              >
+                Online Spare Parts Store
+              </a>
+
+              {/*<Link*/}
+              {/*  to="contact"*/}
+              {/*  spy={true}*/}
+              {/*  smooth={true}*/}
+              {/*  offset={-70}*/}
+              {/*  duration={500}*/}
+              {/*  className="btn btn-primary w-full"*/}
+              {/*  onClick={() => setIsOpen(false)}*/}
+              {/*>*/}
+              {/*  Contact Us*/}
+              {/*</Link>*/}
+            </div>
           </nav>
         </div>
       )}

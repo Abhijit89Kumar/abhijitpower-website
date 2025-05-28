@@ -123,7 +123,7 @@ const Hero: React.FC = () => {
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6 border border-white/20">
                 <p className="text-white font-medium text-lg">
                   ✅ Expert Generator Service & Maintenance<br/>
-                  ✅ Genuine Spare Parts Supply<br/>
+                  ✅ Genuine Spare Parts<br/>
                   ✅ Serving Hyderabad, Mahbubnagar & Nalgonda<br/>
                   ✅ 24/7 Emergency Support Available
                 </p>

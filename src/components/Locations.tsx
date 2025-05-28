@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { locations, contactInfo } from '../data';
-import { MapPin, Phone, Navigation, Clock, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Navigation, Clock} from 'lucide-react';
 
 const Locations: React.FC = () => {
   return (
@@ -133,86 +133,19 @@ const Locations: React.FC = () => {
           })}
         </div>
 
-        {/* Phone Catalog Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-2xl shadow-xl p-8 mb-12 max-w-4xl mx-auto border border-gray-100"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-semibold mb-2">Contact Numbers</h3>
-            <p className="text-gray-600">Reach out to us for specific needs</p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center p-4 bg-red-50 rounded-xl border border-red-100">
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Phone className="h-6 w-6 text-red-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.gensetSales}</h4>
-              <a
-                href={`tel:${contactInfo.phone.gensetSales}`}
-                className="text-red-600 hover:text-red-700 font-medium transition-colors"
-              >
-                {contactInfo.phone.gensetSales}
-              </a>
-            </div>
-
-            <div className="text-center p-4 bg-green-50 rounded-xl border border-green-100">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Phone className="h-6 w-6 text-green-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.tractorSales}</h4>
-              <a
-                href={`tel:${contactInfo.phone.tractorSales}`}
-                className="text-green-600 hover:text-green-700 font-medium transition-colors"
-              >
-                {contactInfo.phone.tractorSales}
-              </a>
-            </div>
-
-            <div className="text-center p-4 bg-blue-50 rounded-xl border border-blue-100">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Phone className="h-6 w-6 text-blue-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.serviceSpare}</h4>
-              <a
-                href={`tel:${contactInfo.phone.serviceSpare}`}
-                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
-              >
-                {contactInfo.phone.serviceSpare}
-              </a>
-            </div>
-
-            <div className="text-center p-4 bg-purple-50 rounded-xl border border-purple-100">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Phone className="h-6 w-6 text-purple-600" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.headOfDealership}</h4>
-              <a
-                href={`tel:${contactInfo.phone.headOfDealership}`}
-                className="text-purple-600 hover:text-purple-700 font-medium transition-colors"
-              >
-                {contactInfo.phone.headOfDealership}
-              </a>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="text-center bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-lg">
-          <h3 className="text-2xl font-semibold mb-4">Need Help Finding Us?</h3>
-          <p className="mb-8 text-lg text-gray-700 max-w-2xl mx-auto">
-            Our team is ready to assist you with directions to our locations or any other inquiries you may have.
-          </p>
-          <a
-            href="#contact"
-            className="btn btn-primary inline-flex items-center px-8 py-3"
-          >
-            Contact Us <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
-        </div>
+        {/*<div className="text-center bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-lg">*/}
+        {/*  <h3 className="text-2xl font-semibold mb-4">Need Help Finding Us?</h3>*/}
+        {/*  <p className="mb-8 text-lg text-gray-700 max-w-2xl mx-auto">*/}
+        {/*    Our team is ready to assist you with directions to our locations or any other inquiries you may have.*/}
+        {/*  </p>*/}
+        {/*  <a*/}
+        {/*    href="#contact"*/}
+        {/*    className="btn btn-primary inline-flex items-center px-8 py-3"*/}
+        {/*  >*/}
+        {/*    Contact Us <ArrowRight className="ml-2 h-4 w-4" />*/}
+        {/*  </a>*/}
+        {/*</div>*/}
       </div>
     </section>
   );
