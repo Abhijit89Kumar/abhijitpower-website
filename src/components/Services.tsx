@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-scroll';
+// import { Link } from 'react-scroll';
 import { services, getServiceIcon } from '../data';
 import { ArrowRight } from 'lucide-react';
 
@@ -99,34 +99,34 @@ const Services: React.FC = () => {
           })}
         </div>
 
-        <div className="mt-20 text-center">
-          <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4">Want to discuss your requirements?</h3>
-            <p className="mb-8 text-lg text-gray-700 max-w-2xl mx-auto">
-              We are here to help you find the perfect solution for your needs. <br />
-              Contact us today for a consultation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {/*<a*/}
-              {/*  href="tel:7766908394"*/}
-              {/*  className="btn btn-primary inline-flex items-center px-8 py-3"*/}
-              {/*>*/}
-              {/*  <Phone className="mr-2 h-5 w-5" />*/}
-              {/*  Call Us Now: 7766908394*/}
-              {/*</a>*/}
-              <Link
-                to="contact"
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="btn bg-white text-gray-800 hover:bg-gray-50 border border-gray-200 inline-flex items-center px-8 py-3"
-              >
-                Send a Message
-              </Link>
-            </div>
-          </div>
-        </div>
+        {/*<div className="mt-20 text-center">*/}
+        {/*  <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-lg">*/}
+        {/*    <h3 className="text-2xl font-semibold mb-4">Want to discuss your requirements?</h3>*/}
+        {/*    <p className="mb-8 text-lg text-gray-700 max-w-2xl mx-auto">*/}
+        {/*      We are here to help you find the perfect solution for your needs. <br />*/}
+        {/*      Contact us today for a consultation.*/}
+        {/*    </p>*/}
+        {/*    <div className="flex flex-col sm:flex-row gap-4 justify-center">*/}
+        {/*      /!*<a*!/*/}
+        {/*      /!*  href="tel:7766908394"*!/*/}
+        {/*      /!*  className="btn btn-primary inline-flex items-center px-8 py-3"*!/*/}
+        {/*      /!*>*!/*/}
+        {/*      /!*  <Phone className="mr-2 h-5 w-5" />*!/*/}
+        {/*      /!*  Call Us Now: 7766908394*!/*/}
+        {/*      /!*</a>*!/*/}
+        {/*      <Link*/}
+        {/*        to="contact"*/}
+        {/*        spy={true}*/}
+        {/*        smooth={true}*/}
+        {/*        offset={-70}*/}
+        {/*        duration={500}*/}
+        {/*        className="btn bg-white text-gray-800 hover:bg-gray-50 border border-gray-200 inline-flex items-center px-8 py-3"*/}
+        {/*      >*/}
+        {/*        Send a Message*/}
+        {/*      </Link>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
     </section>
   );

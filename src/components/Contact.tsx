@@ -228,11 +228,11 @@ const Contact: React.FC = () => {
         />
       </div>
 
-      <div className="container relative z-30">
+      <div className="container relative z-30 -mt-12">
         <div className="flex flex-col items-center mb-12">
           <span className="text-sm font-medium text-white bg-white/10 backdrop-blur-sm px-4 py-1 rounded-full mb-4">Get In Touch</span>
           <h2 className="section-title text-white">Contact Us</h2>
-          <p className="text-gray-300 max-w-2xl text-center mt-4">Have questions about our products or services? Our team is ready to assist you.</p>
+          <p className="text-gray-300 max-w-2xl text-center -mt-4">Have questions about our products or services? Our team is ready to assist you.</p>
         </div>
 
         <div className="grid grid-cols-1 px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-40">

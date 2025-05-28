@@ -110,14 +110,14 @@ const Hero: React.FC = () => {
               className="text-white order-2 lg:order-1"
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                Powering Your <span className="text-primary relative inline-block">
-                Future
+                Powering Your<span className="text-primary relative inline-block">
+                  Future
                   <span className="absolute bottom-1 sm:bottom-2 left-0 w-full h-1 sm:h-2 bg-primary/30 -z-10"></span>
                 </span> with Reliable Solutions
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl mb-4 sm:mb-6 text-gray-200 leading-relaxed">
-                🏆 <strong>Award-Winning</strong> authorized dealer of <span className="text-red-400 font-semibold">Mahindra Powerol Generators</span> and <span className="text-green-400 font-semibold">Gromax Tractors</span> with <strong>25+ years experience</strong>
+                🏆 <strong>Award-Winning</strong> authorized dealer of <span className="text-red-400 font-semibold">Mahindra Powerol Generators</span> and <span className="text-green-400 font-semibold">Gromax Tractors</span> with <strong>6+ years experience</strong>
               </p>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 border border-white/20">
@@ -171,7 +171,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="order-1 lg:order-2 flex justify-center lg:block pt-8"
+              className="order-1 lg:order-2 flex justify-center lg:block"
             >
               <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
                 {/* Main Award Display Card */}
