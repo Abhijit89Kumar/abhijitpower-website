@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
       {/*  </div>*/}
       {/*</div>*/}
 
-      <div className="relative pt-48 md:pt-45 pb-48 min-h-[calc(100vh-200px)] flex flex-col justify-center z-30">
+      <div className="relative pt-32 md:pt-45 pb-32 min-h-[calc(100vh-200px)] flex flex-col justify-center z-30">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
                 <p className="text-white font-medium text-lg">
                   ✅ Expert Generator Service & Maintenance<br/>
                   ✅ Genuine Spare Parts<br/>
-                  ✅ Serving Hyderabad, Mahbubnagar & Nalgonda<br/>
+                  ✅ Serving Hyderabad, Mahabubnagar & Nalgonda<br/>
                   ✅ 24/7 Emergency Support Available
                 </p>
               </div>
