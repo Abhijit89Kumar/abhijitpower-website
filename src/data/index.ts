@@ -97,6 +97,14 @@ export const testimonials: Testimonial[] = [
     rating: 5,
     image: '/assets/customer-5.jpg',
   },
+  {
+    id: 6,
+    name: 'Ananya Patel',
+    role: 'Agricultural Contractor',
+    comment: 'The Gromax tractor I purchased has significantly improved our farming efficiency. Abhijit Power provided great guidance in selecting the right model for our needs.',
+    rating: 5,
+    image: '/assets/genset-sale-1.jpg',
+  },
 ];
 
 export const locations: Location[] = [

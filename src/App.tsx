@@ -8,6 +8,7 @@ import Testimonials from './components/Testimonials';
 import Locations from './components/Locations';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import SplashScreen from './components/SplashScreen';
 import { AnimatePresence } from 'framer-motion';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -55,6 +56,7 @@ class ErrorBoundary extends React.Component<
 
 function App() {
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,20 +76,38 @@ function App() {
     console.log('App mounted successfully');
   }, []);
 
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
   return (
     <ErrorBoundary>
       <div className="font-inter text-gray-800">
-        <Navbar />
-        <Hero />
-        <About />
-        <Services />
-        <Brochures />
-        <Testimonials />
-        <Locations />
-        <Contact />
-        <Footer />
+        {/* Splash Screen */}
         <AnimatePresence>
-          {showScrollButton && <ScrollToTop />}
+          {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+        </AnimatePresence>
+
+        {/* Main Content */}
+        <AnimatePresence>
+          {!showSplash && (
+            <>
+              <Navbar />
+              <Hero />
+              <About />
+              <Services />
+              <Brochures />
+              <Testimonials />
+              <Locations />
+              <Contact />
+              <Footer />
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Scroll to Top Button */}
+        <AnimatePresence>
+          {showScrollButton && !showSplash && <ScrollToTop />}
         </AnimatePresence>
       </div>
     </ErrorBoundary>

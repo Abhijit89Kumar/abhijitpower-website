@@ -15,7 +15,7 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-gray-50;
   }
@@ -25,33 +25,39 @@
   .container {
     @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
   }
-  
+
   .section {
     @apply py-16 md:py-24;
   }
-  
+
   .section-title {
     @apply text-3xl md:text-4xl font-bold text-center mb-12 relative;
   }
-  
+
   .section-title::after {
     content: '';
     @apply absolute w-20 h-1 bg-primary left-1/2 -translate-x-1/2 -bottom-3;
   }
-  
+
   .btn {
     @apply inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
   }
-  
+
   .btn-primary {
     @apply bg-primary text-white hover:bg-primary-dark focus-visible:ring-primary;
   }
-  
+
   .btn-secondary {
     @apply bg-secondary text-white hover:bg-secondary-dark focus-visible:ring-secondary;
   }
-  
+
   .btn-outline {
     @apply border border-gray-300 bg-transparent hover:bg-gray-100 focus-visible:ring-gray-400;
+  }
+
+  /* Splash screen specific styles */
+  .splash-screen {
+    @apply fixed inset-0 z-50 overflow-hidden;
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 50%, #dc2626 100%);
   }
 }
