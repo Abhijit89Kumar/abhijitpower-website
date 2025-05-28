@@ -235,68 +235,68 @@ const Contact: React.FC = () => {
           <p className="text-gray-300 max-w-2xl text-center mt-4">Have questions about our products or services? Our team is ready to assist you.</p>
         </div>
 
-        <div className="grid grid-cols-1 px-40">
+        <div className="grid grid-cols-1 px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-40">
           {/* Phone Catalog Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-xl p-8 mb-12 max-w-4xl mx-auto border border-gray-100"
+            className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12 max-w-4xl mx-auto border border-gray-100"
           >
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-semibold mb-2">Contact Numbers</h3>
-              <p className="text-gray-600">Reach out to us for specific needs</p>
+            <div className="text-center mb-6 sm:mb-8">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2">Contact Numbers</h3>
+              <p className="text-gray-600 text-sm sm:text-base">Reach out to us for specific needs</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center p-4 bg-red-50 rounded-xl border border-red-100">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Phone className="h-6 w-6 text-red-600" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div className="text-center p-3 sm:p-4 bg-red-50 rounded-xl border border-red-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-red-600" />
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.gensetSales}</h4>
+                <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{contactInfo.phoneLabels.gensetSales}</h4>
                 <a
                   href={`tel:${contactInfo.phone.gensetSales}`}
-                  className="text-red-600 hover:text-red-700 font-medium transition-colors"
+                  className="text-red-600 hover:text-red-700 font-medium transition-colors text-sm sm:text-base"
                 >
                   {contactInfo.phone.gensetSales}
                 </a>
               </div>
 
-              <div className="text-center p-4 bg-green-50 rounded-xl border border-green-100">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Phone className="h-6 w-6 text-green-600" />
+              <div className="text-center p-3 sm:p-4 bg-green-50 rounded-xl border border-green-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.tractorSales}</h4>
+                <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{contactInfo.phoneLabels.tractorSales}</h4>
                 <a
                   href={`tel:${contactInfo.phone.tractorSales}`}
-                  className="text-green-600 hover:text-green-700 font-medium transition-colors"
+                  className="text-green-600 hover:text-green-700 font-medium transition-colors text-sm sm:text-base"
                 >
                   {contactInfo.phone.tractorSales}
                 </a>
               </div>
 
-              <div className="text-center p-4 bg-blue-50 rounded-xl border border-blue-100">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Phone className="h-6 w-6 text-blue-600" />
+              <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.serviceSpare}</h4>
+                <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{contactInfo.phoneLabels.serviceSpare}</h4>
                 <a
                   href={`tel:${contactInfo.phone.serviceSpare}`}
-                  className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                  className="text-blue-600 hover:text-blue-700 font-medium transition-colors text-sm sm:text-base"
                 >
                   {contactInfo.phone.serviceSpare}
                 </a>
               </div>
 
-              <div className="text-center p-4 bg-purple-50 rounded-xl border border-purple-100">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Phone className="h-6 w-6 text-purple-600" />
+              <div className="text-center p-3 sm:p-4 bg-purple-50 rounded-xl border border-purple-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-1">{contactInfo.phoneLabels.headOfDealership}</h4>
+                <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{contactInfo.phoneLabels.headOfDealership}</h4>
                 <a
                   href={`tel:${contactInfo.phone.headOfDealership}`}
-                  className="text-purple-600 hover:text-purple-700 font-medium transition-colors"
+                  className="text-purple-600 hover:text-purple-700 font-medium transition-colors text-sm sm:text-base"
                 >
                   {contactInfo.phone.headOfDealership}
                 </a>
@@ -410,17 +410,17 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto border border-gray-100">
-              <h3 className="text-2xl font-semibold mb-6">Send us a message</h3>
+            <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto border border-gray-100">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Send us a message</h3>
 
               {submitMessage && (
-                <div className="bg-green-50 text-green-700 p-4 rounded-md mb-6">
+                <div className="bg-green-50 text-green-700 p-3 sm:p-4 rounded-md mb-4 sm:mb-6 text-sm sm:text-base">
                   {submitMessage}
                 </div>
               )}
 
               {submitError && (
-                <div className="bg-red-50 text-red-700 p-4 rounded-md mb-6">
+                <div className="bg-red-50 text-red-700 p-3 sm:p-4 rounded-md mb-4 sm:mb-6 text-sm sm:text-base">
                   <p className="mb-2">{submitError}</p>
                   <EmailFallback
                     name={formData.name}
@@ -474,7 +474,7 @@ const Contact: React.FC = () => {
               <form ref={formRef} onSubmit={handleSubmit}>
                 {/* Hidden field for recipient email */}
                 <input type="hidden" name="to_email" value="abhijit.genset@gmail.com" />
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                     Your Name
                   </label>
@@ -485,11 +485,11 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email
@@ -501,7 +501,7 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base"
                     />
                   </div>
 
@@ -516,12 +516,12 @@ const Contact: React.FC = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base"
                     />
                   </div>
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">
                     Interested In
                   </label>
@@ -530,7 +530,7 @@ const Contact: React.FC = () => {
                     name="service_type"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base"
                   >
                     <option value="New Generator Requirement">New Generator Requirement</option>
                     <option value="New Tractor Requirement">New Tractor Requirement</option>
@@ -541,7 +541,7 @@ const Contact: React.FC = () => {
                   </select>
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                     Your Message
                   </label>
@@ -552,7 +552,7 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base resize-none"
                   ></textarea>
                 </div>
 
@@ -560,12 +560,12 @@ const Contact: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn btn-primary w-full flex items-center justify-center py-3 text-base"
+                    className="btn btn-primary w-full flex items-center justify-center py-2.5 sm:py-3 text-sm sm:text-base"
                   >
                     {isSubmitting ? (
-                      <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+                      <span className="inline-block w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
                     ) : (
-                      <Send className="h-5 w-5 mr-2" />
+                      <Send className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     )}
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>

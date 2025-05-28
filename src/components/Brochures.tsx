@@ -6,6 +6,7 @@ interface Brochure {
   name: string;
   url: string;
   category: 'generator' | 'tractor';
+  image?: string;
 }
 
 const brochures: Brochure[] = [
@@ -37,37 +38,44 @@ const brochures: Brochure[] = [
   {
     name: 'Hindustan Tractor',
     url: 'https://www.trakstartractor.com/files/catalog/Hindustan.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/hindustan-tractor.png'
   },
   {
     name: 'Trakstar 550',
     url: 'https://www.trakstartractor.com/files/catalog/Trakstar%20550.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/trakstar-550.png'
   },
   {
     name: 'Trakstar 545',
     url: 'https://www.trakstartractor.com/files/catalog/Trakstar%20545.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/trakstar-545.png'
   },
   {
     name: 'Trakstar 545 Smart',
     url: 'https://www.trakstartractor.com/files/catalog/Trakstar%20545%20SMART.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/trakstar-545.png'
   },
   {
     name: 'Trakstar 540',
     url: 'https://www.trakstartractor.com/files/catalog/Trakstar%20540.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/trakstar-540.png'
   },
   {
     name: 'Trakstar 536',
     url: 'https://www.trakstartractor.com/files/catalog/Trakstar%20536.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/trakstar-536.png'
   },
   {
     name: 'Trakstar 531',
     url: 'https://www.trakstartractor.com/files/catalog/Trakstar%20531.pdf',
-    category: 'tractor'
+    category: 'tractor',
+    image: '/assets/trakstar-531.png'
   }
 ];
 
@@ -140,16 +148,51 @@ const Brochures: React.FC = () => {
                 className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
               >
                 <div className="relative h-40 overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${bgImage})` }}
-                  ></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                      <FileText className="h-8 w-8 text-white" />
+                  {brochure.image ? (
+                    // Show specific tractor image
+                    <div className="relative h-full bg-gradient-to-br from-green-50 to-green-100">
+                      <img
+                        src={brochure.image}
+                        alt={brochure.name}
+                        className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110"
+                        onError={(e) => {
+                          // Fallback to background image if tractor image fails to load
+                          e.currentTarget.style.display = 'none';
+                          const parent = e.currentTarget.parentElement;
+                          if (parent) {
+                            parent.innerHTML = `
+                              <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url(${bgImage})"></div>
+                              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
+                              <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                  <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                  </svg>
+                                </div>
+                              </div>
+                            `;
+                          }
+                        }}
+                      />
+                      <div className="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                        {brochure.category === 'tractor' ? 'Gromax' : 'Powerol'}
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    // Show generic background for generators
+                    <>
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style={{ backgroundImage: `url(${bgImage})` }}
+                      ></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                          <FileText className="h-8 w-8 text-white" />
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="p-6">
