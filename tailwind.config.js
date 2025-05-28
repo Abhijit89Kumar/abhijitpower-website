@@ -3,13 +3,17 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      screens: {
+        'xs': '475px',
+        '3xl': '1600px',
+      },
       colors: {
         primary: {
           DEFAULT: '#c7372f',
           dark: '#a62b24',
         },
         secondary: {
-          DEFAULT: '#2563eb', 
+          DEFAULT: '#2563eb',
           dark: '#1d4ed8',
         },
         accent: {

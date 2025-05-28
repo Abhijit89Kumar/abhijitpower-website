@@ -100,28 +100,28 @@ const Hero: React.FC = () => {
       {/*  </div>*/}
       {/*</div>*/}
 
-      <div className="relative pt-32 md:pt-45 pb-32 min-h-[calc(100vh-200px)] flex flex-col justify-center z-30">
+      <div className="relative pt-20 sm:pt-24 md:pt-32 lg:pt-36 xl:pt-40 pb-16 sm:pb-20 md:pb-24 lg:pb-32 min-h-screen flex flex-col justify-center z-30">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-white"
+              className="text-white order-2 lg:order-1"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
                 Powering Your<span className="text-primary relative inline-block">
                   Future
-                  <span className="absolute bottom-2 left-0 w-full h-2 bg-primary/30 -z-10"></span>
+                  <span className="absolute bottom-1 sm:bottom-2 left-0 w-full h-1 sm:h-2 bg-primary/30 -z-10"></span>
                 </span> with Reliable Solutions
               </h1>
 
-              <p className="text-lg md:text-xl mb-6 text-gray-200">
+              <p className="text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl mb-4 sm:mb-6 text-gray-200 leading-relaxed">
                 🏆 <strong>Award-Winning</strong> authorized dealer of <span className="text-red-400 font-semibold">Mahindra Powerol Generators</span> and <span className="text-green-400 font-semibold">Gromax Tractors</span> with <strong>6+ years experience</strong>
               </p>
 
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6 border border-white/20">
-                <p className="text-white font-medium text-lg">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 border border-white/20">
+                <p className="text-white font-medium text-sm sm:text-base lg:text-lg leading-relaxed">
                   ✅ Expert Generator Service & Maintenance<br/>
                   ✅ Genuine Spare Parts<br/>
                   ✅ Serving Hyderabad, Mahabubnagar & Nalgonda<br/>
@@ -129,14 +129,14 @@ const Hero: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10 lg:mb-12">
                 <Link
                   to="services"
                   spy={true}
                   smooth={true}
                   offset={-70}
                   duration={500}
-                  className="btn btn-primary px-8 py-3 group"
+                  className="btn btn-primary px-6 sm:px-8 py-2.5 sm:py-3 group text-sm sm:text-base"
                 >
                   Explore Our Services
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -147,22 +147,22 @@ const Hero: React.FC = () => {
                   smooth={true}
                   offset={-70}
                   duration={500}
-                  className="btn bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors px-8 py-3 border border-white/20"
+                  className="btn bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors px-6 sm:px-8 py-2.5 sm:py-3 border border-white/20 text-sm sm:text-base"
                 >
                   Contact Us
                 </Link>
               </div>
 
-              <div className="flex items-center gap-6 mt-12">
+              <div className="flex items-center gap-4 sm:gap-6">
                 <img
                   src="/assets/powerol-logo.png"
                   alt="Powerol by Mahindra"
-                  className="h-20 object-contain bg-white/90 p-2 rounded"
+                  className="h-12 sm:h-16 lg:h-20 object-contain bg-white/90 p-1.5 sm:p-2 rounded"
                 />
                 <img
                   src="/assets/gromax-logo.png"
                   alt="Gromax Tractors"
-                  className="h-20 object-contain bg-white/90 p-2 rounded"
+                  className="h-12 sm:h-16 lg:h-20 object-contain bg-white/90 p-1.5 sm:p-2 rounded"
                 />
               </div>
             </motion.div>
@@ -171,13 +171,13 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="hidden lg:block"
+              className="order-1 lg:order-2 flex justify-center lg:block"
             >
-              <div className="relative max-w-lg mx-auto">
+              <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
                 {/* Main Award Display Card */}
                 <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/30 overflow-hidden">
                   {/* Award Image Container */}
-                  <div className="relative h-96 bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+                  <div className="relative h-64 sm:h-72 md:h-80 lg:h-72 xl:h-80 2xl:h-96 bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 lg:p-8">
                     <img
                       src={awards[currentAward].image}
                       alt={awards[currentAward].title}
@@ -187,29 +187,29 @@ const Hero: React.FC = () => {
                     {/* Carousel Controls */}
                     <button
                       onClick={prevAward}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+                      className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
                     >
-                      <ChevronLeft size={18} />
+                      <ChevronLeft size={16} className="sm:w-[18px] sm:h-[18px]" />
                     </button>
                     <button
                       onClick={nextAward}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+                      className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
                     >
-                      <ChevronRight size={18} />
+                      <ChevronRight size={16} className="sm:w-[18px] sm:h-[18px]" />
                     </button>
 
                     {/* Award Badge */}
-                    <div className="absolute top-3 right-3 bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                    <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-primary text-white px-2 sm:px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                       Award {currentAward + 1} of {awards.length}
                     </div>
                   </div>
 
                   {/* Award Info Section */}
-                  <div className="p-8 bg-white">
-                    <h3 className="font-bold text-xl text-gray-900 mb-3 leading-tight">
+                  <div className="p-4 sm:p-6 lg:p-8 bg-white">
+                    <h3 className="font-bold text-lg sm:text-xl lg:text-xl text-gray-900 mb-2 sm:mb-3 leading-tight">
                       {awards[currentAward].title}
                     </h3>
-                    <p className="text-gray-600 text-base mb-6">
+                    <p className="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">
                       {awards[currentAward].subtitle}
                     </p>
 
@@ -219,7 +219,7 @@ const Hero: React.FC = () => {
                         <button
                           key={index}
                           onClick={() => setCurrentAward(index)}
-                          className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                          className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
                             index === currentAward
                               ? 'bg-primary scale-110'
                               : 'bg-gray-300 hover:bg-gray-400'
@@ -231,23 +231,23 @@ const Hero: React.FC = () => {
                 </div>
 
                 {/* Excellence Badge */}
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-primary to-red-600 text-white p-4 rounded-xl shadow-xl border-4 border-white">
+                <div className="absolute -bottom-3 sm:-bottom-4 -right-3 sm:-right-4 bg-gradient-to-r from-primary to-red-600 text-white p-3 sm:p-4 rounded-xl shadow-xl border-2 sm:border-4 border-white">
                   <div className="text-center">
-                    <div className="text-2xl font-bold">6+</div>
+                    <div className="text-xl sm:text-2xl font-bold">6+</div>
                     <div className="text-xs font-medium">Years of Excellence</div>
                   </div>
                 </div>
 
                 {/* Decorative Elements */}
-                <div className="absolute -top-2 -left-2 w-4 h-4 bg-primary/30 rounded-full"></div>
-                <div className="absolute -top-1 -left-1 w-2 h-2 bg-primary rounded-full"></div>
+                <div className="absolute -top-2 -left-2 w-3 h-3 sm:w-4 sm:h-4 bg-primary/30 rounded-full"></div>
+                <div className="absolute -top-1 -left-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full"></div>
               </div>
             </motion.div>
           </div>
         </div>
 
         <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30"
+          className="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 z-30"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
@@ -257,9 +257,9 @@ const Hero: React.FC = () => {
             smooth={true}
             offset={-70}
             duration={500}
-            className="cursor-pointer bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+            className="cursor-pointer bg-white/10 backdrop-blur-sm p-2.5 sm:p-3 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
           >
-            <ChevronDown size={24} className="text-white" />
+            <ChevronDown size={20} className="sm:w-6 sm:h-6 text-white" />
           </Link>
         </motion.div>
 
