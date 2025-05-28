@@ -132,7 +132,7 @@ const About: React.FC = () => {
                 <div className="bg-white rounded-xl overflow-hidden shadow-xl border-2 border-red-100">
                   <div className="relative h-[300px] overflow-hidden">
                     <img
-                      src="/assets/powerol-logo.png"
+                      src="/assets/powerol-dg.jpg"
                       alt="Mahindra Powerol"
                       className="w-full h-full object-contain p-8 bg-gradient-to-br from-red-50 to-white"
                     />
@@ -274,7 +274,7 @@ const About: React.FC = () => {
                 <div className="bg-white rounded-xl overflow-hidden shadow-xl border-2 border-green-100">
                   <div className="relative h-[300px] overflow-hidden">
                     <img
-                      src="/assets/gromax-logo.png"
+                      src="/assets/tractor-lineup.jpg"
                       alt="Gromax Agri Equipment"
                       className="w-full h-full object-contain p-8 bg-gradient-to-br from-green-50 to-white"
                     />

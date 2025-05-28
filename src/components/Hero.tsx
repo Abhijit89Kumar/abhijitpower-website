@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
     {
       image: '/assets/award-highest-service-business-revenue-f24-southzone.jpg',
       title: 'Highest Service & Business Revenue F-24',
-      subtitle: 'South Zone India - 2024'
+      subtitle: 'South Region India - 2024'
     },
     {
       image: '/assets/award-highest-revenue-f23-telangana.jpg',
@@ -20,7 +20,12 @@ const Hero: React.FC = () => {
     {
       image: '/assets/award-best-service-dealer-south-region.jpg',
       title: 'Best Service Dealer',
-      subtitle: 'South Region - 2023'
+      subtitle: 'South Region India - 2023'
+    },
+    {
+      image: '/assets/customer-centricity-f22.jpg',
+      title: 'Customer Centricity Award F-22',
+      subtitle: 'Telangana, India - 2022'
     },
     {
       image: '/assets/MAGEIC-certificate.jpg',
@@ -51,7 +56,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/70 z-10"></div>
         <img
           src="/assets/hero-background.jpg"
-          alt="Mahindra Generators and Tractors"
+          alt="Mahindra Generator Dealer Hyderabad - AbhijitPower Generator Service Center"
           className="absolute inset-0 w-full h-full object-cover"
           onError={(e) => {
             // Fallback to gradient if image fails to load
@@ -67,7 +72,35 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-[url('/assets/pattern-bg.svg')] opacity-20 z-20"></div>
       </div>
 
-      <div className="relative pt-32 pb-16 min-h-screen flex flex-col justify-center z-30">
+      {/*/!* Top Banner Section *!/*/}
+      {/*<div className="relative z-30 pt-40">*/}
+      {/*  <div className="container">*/}
+      {/*    <motion.div*/}
+      {/*      initial={{ opacity: 0, y: -20 }}*/}
+      {/*      animate={{ opacity: 1, y: 0 }}*/}
+      {/*      transition={{ duration: 0.6 }}*/}
+      {/*      className="flex justify-center"*/}
+      {/*    >*/}
+      {/*      <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-lg border border-white/30 p-2 max-w-4xl w-full">*/}
+      {/*        <img*/}
+      {/*          src="/assets/top-banner.jpg"*/}
+      {/*          alt="AbhijitPower Top Banner"*/}
+      {/*          className="w-full h-auto object-contain rounded-md"*/}
+      {/*          onError={(e) => {*/}
+      {/*            // Fallback styling if image fails to load*/}
+      {/*            e.currentTarget.style.display = 'none';*/}
+      {/*            const parent = e.currentTarget.parentElement;*/}
+      {/*            if (parent) {*/}
+      {/*              parent.innerHTML = '<div class="bg-gradient-to-r from-primary to-red-600 text-white text-center py-6 rounded-md"><h2 class="text-xl font-bold">AbhijitPower - Your Trusted Partner</h2><p class="mt-2 text-sm">Mahindra Powerol Generators & Gromax Tractors</p></div>';*/}
+      {/*            }*/}
+      {/*          }}*/}
+      {/*        />*/}
+      {/*      </div>*/}
+      {/*    </motion.div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
+      <div className="relative pt-48 md:pt-45 pb-48 min-h-[calc(100vh-200px)] flex flex-col justify-center z-30">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -77,15 +110,24 @@ const Hero: React.FC = () => {
               className="text-white"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Powering Your <span className="text-primary relative inline-block">
+                Powering Your<span className="text-primary relative inline-block">
                   Future
                   <span className="absolute bottom-2 left-0 w-full h-2 bg-primary/30 -z-10"></span>
-                </span> With Reliable Solutions
+                </span> with Reliable Solutions
               </h1>
 
-              <p className="text-lg md:text-xl mb-8 text-gray-200">
-                Authorized dealer of <span className="text-red-400 font-semibold">Mahindra Powerol Generators</span> and <span className="text-green-400 font-semibold">Gromax Tractors</span>, providing sales, service and spare parts across Hyderabad, Mahbubnagar, and Nalgonda
+              <p className="text-lg md:text-xl mb-6 text-gray-200">
+                🏆 <strong>Award-Winning</strong> authorized dealer of <span className="text-red-400 font-semibold">Mahindra Powerol Generators</span> and <span className="text-green-400 font-semibold">Gromax Tractors</span> with <strong>6+ years experience</strong>
               </p>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6 border border-white/20">
+                <p className="text-white font-medium text-lg">
+                  ✅ Expert Generator Service & Maintenance<br/>
+                  ✅ Genuine Spare Parts Supply<br/>
+                  ✅ Serving Hyderabad, Mahbubnagar & Nalgonda<br/>
+                  ✅ 24/7 Emergency Support Available
+                </p>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
@@ -115,12 +157,12 @@ const Hero: React.FC = () => {
                 <img
                   src="/assets/powerol-logo.png"
                   alt="Powerol by Mahindra"
-                  className="h-12 object-contain bg-white/90 p-1 rounded"
+                  className="h-20 object-contain bg-white/90 p-2 rounded"
                 />
                 <img
                   src="/assets/gromax-logo.png"
                   alt="Gromax Tractors"
-                  className="h-12 object-contain bg-white/90 p-1 rounded"
+                  className="h-20 object-contain bg-white/90 p-2 rounded"
                 />
               </div>
             </motion.div>
@@ -131,11 +173,11 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="hidden lg:block"
             >
-              <div className="relative max-w-md mx-auto">
+              <div className="relative max-w-lg mx-auto">
                 {/* Main Award Display Card */}
                 <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/30 overflow-hidden">
                   {/* Award Image Container */}
-                  <div className="relative h-80 bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+                  <div className="relative h-96 bg-gradient-to-br from-gray-50 to-gray-100 p-8">
                     <img
                       src={awards[currentAward].image}
                       alt={awards[currentAward].title}
@@ -163,11 +205,11 @@ const Hero: React.FC = () => {
                   </div>
 
                   {/* Award Info Section */}
-                  <div className="p-6 bg-white">
-                    <h3 className="font-bold text-lg text-gray-900 mb-2 leading-tight">
+                  <div className="p-8 bg-white">
+                    <h3 className="font-bold text-xl text-gray-900 mb-3 leading-tight">
                       {awards[currentAward].title}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-4">
+                    <p className="text-gray-600 text-base mb-6">
                       {awards[currentAward].subtitle}
                     </p>
 

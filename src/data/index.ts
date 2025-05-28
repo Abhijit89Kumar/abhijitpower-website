@@ -63,7 +63,7 @@ export const testimonials: Testimonial[] = [
     role: 'Factory Owner',
     comment: 'The Mahindra generators from Abhijit Power have been exceptionally reliable for our manufacturing facility. Their service team is prompt and professional.',
     rating: 5,
-    image: '/assets/customer-1.jpg',
+    image: '/assets/customer-2.jpg',
   },
   {
     id: 2,
@@ -71,7 +71,7 @@ export const testimonials: Testimonial[] = [
     role: 'Farm Owner',
     comment: 'We purchased a Gromax tractor last year and have been thoroughly impressed with its performance. The after-sales service from Abhijit Power has been excellent.',
     rating: 5,
-    image: '/assets/customer-2.jpg',
+    image: '/assets/customer-1.jpg',
   },
   {
     id: 3,
@@ -88,6 +88,14 @@ export const testimonials: Testimonial[] = [
     comment: 'The Gromax tractor I purchased has significantly improved our farming efficiency. Abhijit Power provided great guidance in selecting the right model for our needs.',
     rating: 5,
     image: '/assets/customer-4.jpg',
+  },
+  {
+    id: 5,
+    name: 'Ananya Patel',
+    role: 'Agricultural Contractor',
+    comment: 'The Gromax tractor I purchased has significantly improved our farming efficiency. Abhijit Power provided great guidance in selecting the right model for our needs.',
+    rating: 5,
+    image: '/assets/customer-5.jpg',
   },
 ];
 

@@ -1,0 +1,40 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://abhijitpower.com/sitemap.xml
+
+# Disallow crawling of admin or private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.env
+Disallow: /api/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
+Disallow: /dist/
+
+# Allow crawling of important pages and assets
+Allow: /assets/
+Allow: /#home
+Allow: /#services
+Allow: /#about
+Allow: /#locations
+Allow: /#contact
+Allow: /#testimonials
+Allow: /#brochures
+
+# SEO-friendly URLs (when implemented)
+Allow: /mahindra-generator-hyderabad
+Allow: /generator-service
+Allow: /blog/
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Additional directives for better SEO
+User-agent: Googlebot
+Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 1
