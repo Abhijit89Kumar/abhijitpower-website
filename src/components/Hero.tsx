@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
       {/*  </div>*/}
       {/*</div>*/}
 
-      <div className="relative pt-20 sm:pt-24 md:pt-32 lg:pt-36 xl:pt-40 pb-16 sm:pb-20 md:pb-24 lg:pb-32 min-h-screen flex flex-col justify-center z-30">
+      <div className="relative mt-7 pt-20 sm:pt-24 md:pt-32 lg:pt-36 xl:pt-40 pb-16 sm:pb-20 md:pb-24 lg:pb-32 min-h-screen flex flex-col justify-center z-30">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
             <motion.div
@@ -110,7 +110,7 @@ const Hero: React.FC = () => {
               className="text-white order-2 lg:order-1"
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                Powering Your<span className="text-primary relative inline-block">
+                Powering Your <span className="text-primary relative inline-block">
                   Future
                   <span className="absolute bottom-1 sm:bottom-2 left-0 w-full h-1 sm:h-2 bg-primary/30 -z-10"></span>
                 </span> with Reliable Solutions
